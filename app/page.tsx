@@ -1,14 +1,50 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
+
+type Service = {
+  id: string
+  name: string
+  nameEn: string | null
+  description: string | null
+  descriptionEn: string | null
+  fullDescription: string | null
+  fullDescriptionEn: string | null
+  benefits: string | null
+  benefitsEn: string | null
+  imageUrl: string | null
+  duration: number
+  price: number
+  category: string
+  active: boolean
+}
 
 export default function KLifeSpaPage() {
   const [language, setLanguage] = useState<"es" | "en">("es")
   const [showFacialServices, setShowFacialServices] = useState(false)
   const [showBodyServices, setShowBodyServices] = useState(false)
   const [formResult, setFormResult] = useState("")
+  const [services, setServices] = useState<Service[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await fetch("/api/services")
+        if (response.ok) {
+          const data = await response.json()
+          setServices(data)
+        }
+      } catch (error) {
+        console.error("Error fetching services:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchServices()
+  }, [])
 
   const toggleLanguage = () => {
     setLanguage(language === "es" ? "en" : "es")
@@ -532,121 +568,122 @@ export default function KLifeSpaPage() {
                 <p className="text-xl text-white font-semibold italic">{t.facialServices.subtitle}</p>
                 <p className="text-white mt-2">{t.facialServices.description}</p>
               </div>
-              <div className="grid md:grid-cols-2 gap-8">
-                {t.facialServices.services.map((service: any, index: number) => {
-                  const getServiceImage = (serviceName: string) => {
-                    const imageMap: { [key: string]: string } = {
-                      'Dermaplaning': '/images/dermaplaning.jpg',
-                      'Hidrafacial': '/images/hydrofacial.jpg',
-                      'Microdermoabrasión': '/images/microdermobrasion.jpg',
-                      'Peeling Químico': '/images/peeling-quimico.jpg',
-                      'Dermapen (Microneedle)': '/images/dermapen.jpg',
-                      'ADN de Salmón (PDRN)': '/images/adn-salmon.jpg',
-                      'Exosomas': '/images/exosomas.jpg',
-                      'Pink Glow': '/images/pink-glow.jpg',
-                      'Hydrafacial': '/images/hydrofacial.jpg',
-                      'Microdermabrasion': '/images/microdermobrasion.jpg',
-                      'Chemical Peel': '/images/peeling-quimico.jpg',
-                      'Salmon DNA (PDRN)': '/images/adn-salmon.jpg',
-                      'Venus Legacy': '/images/venus-legacy.jpg',
-                      'Masaje Relajante con Piedras Calientes': '/images/masaje-piedras-calientes.jpg',
-                      'Hot Stone Massage': '/images/masaje-piedras-calientes.jpg',
+              {loading ? (
+                <div className="text-center text-white">Cargando servicios...</div>
+              ) : (
+                <div className="grid md:grid-cols-2 gap-8">
+                  {services.filter(s => s.category === 'facial').map((service) => {
+                    const displayName = language === 'en' && service.nameEn ? service.nameEn : service.name
+                    const displayDescription = language === 'en' && service.fullDescriptionEn ? service.fullDescriptionEn : service.fullDescription
+                    const imageSrc = service.imageUrl || 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&h=600&fit=crop'
+
+                    // Parse benefits from JSON
+                    let benefitsList: string[] = []
+                    try {
+                      const benefitsJson = language === 'en' && service.benefitsEn ? service.benefitsEn : service.benefits
+                      if (benefitsJson) {
+                        benefitsList = JSON.parse(benefitsJson)
+                      }
+                    } catch (e) {
+                      console.error('Error parsing benefits:', e)
                     }
-                    return imageMap[serviceName] || 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&h=600&fit=crop'
-                  }
-                  return (
-                    <div
-                      key={index}
-                      className="bg-gradient-to-br from-[#D9F0EE] to-white p-8 rounded-2xl shadow-lg border border-[#B3E0DC]"
-                    >
-                      <div className="mb-6 overflow-hidden rounded-xl">
-                        <Image
-                          src={getServiceImage(service.name)}
-                          alt={service.name}
-                          width={600}
-                          height={400}
-                          className="w-full h-64 object-cover"
-                        />
-                      </div>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-3">{service.name}</h3>
-                      {service.description && (
-                        <p className="text-gray-700 mb-4 leading-relaxed">{service.description}</p>
-                      )}
-                      {service.benefits && service.benefits.length > 0 && (
-                        <div className="mt-4">
-                          <h4 className="font-semibold text-gray-900 mb-2">Beneficios:</h4>
-                          <ul className="list-disc list-inside space-y-1 text-gray-600">
-                            {service.benefits.map((benefit: string, i: number) => (
-                              <li key={i}>{benefit}</li>
-                            ))}
-                          </ul>
+
+                    return (
+                      <div
+                        key={service.id}
+                        className="bg-gradient-to-br from-[#D9F0EE] to-white p-8 rounded-2xl shadow-lg border border-[#B3E0DC]"
+                      >
+                        <div className="mb-6 overflow-hidden rounded-xl">
+                          <Image
+                            src={imageSrc}
+                            alt={displayName}
+                            width={600}
+                            height={400}
+                            className="w-full h-64 object-cover"
+                          />
                         </div>
-                      )}
-                    </div>
-                  )
-                })}
-              </div>
+                        <h3 className="text-2xl font-bold text-gray-900 mb-3">{displayName}</h3>
+                        {displayDescription && (
+                          <p className="text-gray-700 mb-4 leading-relaxed">{displayDescription}</p>
+                        )}
+                        {benefitsList.length > 0 && (
+                          <div className="mt-4">
+                            <h4 className="font-semibold text-gray-900 mb-2">
+                              {language === 'en' ? 'Benefits:' : 'Beneficios:'}
+                            </h4>
+                            <ul className="list-disc list-inside space-y-1 text-gray-600">
+                              {benefitsList.map((benefit: string, i: number) => (
+                                <li key={i}>{benefit}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
             </div>
           )}
 
           {/* Body Services Content */}
           {showBodyServices && (
             <div className="animate-fadeIn">
-              <div className="grid md:grid-cols-1 gap-8">
-                {t.bodyServices.services.map((service: any, index: number) => {
-                  const getServiceImage = (serviceName: string) => {
-                    const imageMap: { [key: string]: string } = {
-                      'Dermaplaning': '/images/dermaplaning.jpg',
-                      'Hidrafacial': '/images/hydrofacial.jpg',
-                      'Microdermoabrasión': '/images/microdermobrasion.jpg',
-                      'Peeling Químico': '/images/peeling-quimico.jpg',
-                      'Dermapen (Microneedle)': '/images/dermapen.jpg',
-                      'ADN de Salmón (PDRN)': '/images/adn-salmon.jpg',
-                      'Exosomas': '/images/exosomas.jpg',
-                      'Pink Glow': '/images/pink-glow.jpg',
-                      'Hydrafacial': '/images/hydrofacial.jpg',
-                      'Microdermabrasion': '/images/microdermobrasion.jpg',
-                      'Chemical Peel': '/images/peeling-quimico.jpg',
-                      'Salmon DNA (PDRN)': '/images/adn-salmon.jpg',
-                      'Venus Legacy': '/images/venus-legacy.jpg',
-                      'Masaje Relajante con Piedras Calientes': '/images/masaje-piedras-calientes.jpg',
-                      'Hot Stone Massage': '/images/masaje-piedras-calientes.jpg',
-                    }
-                    return imageMap[serviceName] || 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&h=600&fit=crop'
-                  }
+              {loading ? (
+                <div className="text-center text-white">Cargando servicios...</div>
+              ) : (
+                <div className="grid md:grid-cols-1 gap-8">
+                  {services.filter(s => s.category === 'body').map((service) => {
+                    const displayName = language === 'en' && service.nameEn ? service.nameEn : service.name
+                    const displayDescription = language === 'en' && service.fullDescriptionEn ? service.fullDescriptionEn : service.fullDescription
+                    const imageSrc = service.imageUrl || 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&h=600&fit=crop'
 
-                  return (
-                    <div
-                      key={index}
-                      className="bg-gradient-to-br from-[#D9F0EE] to-white p-8 rounded-2xl shadow-lg border border-[#D4AF87]"
-                    >
-                      <div className="mb-6 overflow-hidden rounded-xl">
-                        <Image
-                          src={getServiceImage(service.name)}
-                          alt={service.name}
-                          width={1200}
-                          height={600}
-                          className="w-full h-80 object-cover"
-                        />
-                      </div>
-                      <h3 className="text-3xl font-bold text-gray-900 mb-3">{service.name}</h3>
-                      {service.description && (
-                        <p className="text-xl text-gray-700 mb-4 leading-relaxed italic">{service.description}</p>
-                      )}
-                      {service.benefits && service.benefits.length > 0 && (
-                        <div className="mt-4">
-                          <h4 className="font-semibold text-gray-900 mb-3 text-lg">Beneficios:</h4>
-                          <ul className="list-disc list-inside space-y-2 text-gray-600">
-                            {service.benefits.map((benefit: string, i: number) => (
-                              <li key={i} className="text-base">{benefit}</li>
-                            ))}
-                          </ul>
+                    // Parse benefits from JSON
+                    let benefitsList: string[] = []
+                    try {
+                      const benefitsJson = language === 'en' && service.benefitsEn ? service.benefitsEn : service.benefits
+                      if (benefitsJson) {
+                        benefitsList = JSON.parse(benefitsJson)
+                      }
+                    } catch (e) {
+                      console.error('Error parsing benefits:', e)
+                    }
+
+                    return (
+                      <div
+                        key={service.id}
+                        className="bg-gradient-to-br from-[#D9F0EE] to-white p-8 rounded-2xl shadow-lg border border-[#D4AF87]"
+                      >
+                        <div className="mb-6 overflow-hidden rounded-xl">
+                          <Image
+                            src={imageSrc}
+                            alt={displayName}
+                            width={1200}
+                            height={600}
+                            className="w-full h-80 object-cover"
+                          />
                         </div>
-                      )}
-                    </div>
-                  )
-                })}
-              </div>
+                        <h3 className="text-3xl font-bold text-gray-900 mb-3">{displayName}</h3>
+                        {displayDescription && (
+                          <p className="text-xl text-gray-700 mb-4 leading-relaxed italic">{displayDescription}</p>
+                        )}
+                        {benefitsList.length > 0 && (
+                          <div className="mt-4">
+                            <h4 className="font-semibold text-gray-900 mb-3 text-lg">
+                              {language === 'en' ? 'Benefits:' : 'Beneficios:'}
+                            </h4>
+                            <ul className="list-disc list-inside space-y-2 text-gray-600">
+                              {benefitsList.map((benefit: string, i: number) => (
+                                <li key={i} className="text-base">{benefit}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
             </div>
           )}
         </div>
