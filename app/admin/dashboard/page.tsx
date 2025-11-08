@@ -122,6 +122,15 @@ export default function AdminDashboard() {
             <h3 className="font-semibold text-gray-900">Disponibilidad</h3>
             <p className="text-sm text-gray-600">Horarios y bloqueos</p>
           </button>
+
+          <button
+            onClick={() => router.push("/")}
+            className="p-4 bg-pink-50 hover:bg-pink-100 rounded-lg transition-colors text-left border-2 border-pink-200"
+          >
+            <div className="text-3xl mb-2">🏠</div>
+            <h3 className="font-semibold text-gray-900">Ver Página Principal</h3>
+            <p className="text-sm text-gray-600">Ir al sitio público</p>
+          </button>
         </div>
       </div>
     </div>
