@@ -78,6 +78,7 @@ model Service {
   fullDescriptionEn String? // Full description (English)
   benefits        String?  // JSON array of benefits (Spanish)
   benefitsEn      String?  // JSON array of benefits (English)
+  imageUrl        String?  // Image URL for the service
   duration        Int      // Duration in minutes
   price           Float
   category        String   // "facial" or "body"

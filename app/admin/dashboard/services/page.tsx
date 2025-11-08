@@ -12,6 +12,7 @@ type Service = {
   fullDescriptionEn: string | null
   benefits: string | null
   benefitsEn: string | null
+  imageUrl: string | null
   duration: number
   price: number
   category: string
@@ -34,6 +35,7 @@ export default function ServicesPage() {
     fullDescriptionEn: "",
     benefits: "",
     benefitsEn: "",
+    imageUrl: "",
     duration: 60,
     price: 0,
     category: "facial",
@@ -147,6 +149,7 @@ export default function ServicesPage() {
       fullDescriptionEn: service.fullDescriptionEn || "",
       benefits: benefitsText,
       benefitsEn: benefitsEnText,
+      imageUrl: service.imageUrl || "",
       duration: service.duration,
       price: service.price,
       category: service.category,
@@ -167,6 +170,7 @@ export default function ServicesPage() {
       fullDescriptionEn: "",
       benefits: "",
       benefitsEn: "",
+      imageUrl: "",
       duration: 60,
       price: 0,
       category: "facial",
@@ -265,6 +269,36 @@ export default function ServicesPage() {
                   Servicio activo
                 </label>
               </div>
+            </div>
+
+            {/* Image URL */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                URL de la Imagen
+              </label>
+              <input
+                type="text"
+                value={formData.imageUrl}
+                onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+                placeholder="/images/nombre-servicio.jpg"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Ej: /images/dermaplaning.jpg - La imagen debe estar en la carpeta public/images/
+              </p>
+              {formData.imageUrl && (
+                <div className="mt-2">
+                  <p className="text-xs text-gray-500 mb-1">Vista previa:</p>
+                  <img
+                    src={formData.imageUrl}
+                    alt="Preview"
+                    className="h-32 w-auto rounded-lg object-cover"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none'
+                    }}
+                  />
+                </div>
+              )}
             </div>
 
             {/* Language Tabs */}

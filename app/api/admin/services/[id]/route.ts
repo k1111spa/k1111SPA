@@ -23,6 +23,7 @@ export async function PATCH(
       fullDescriptionEn,
       benefits,
       benefitsEn,
+      imageUrl,
       duration,
       price,
       category,
@@ -47,6 +48,7 @@ export async function PATCH(
       updateData.benefitsEn = benefitsEnArray.length > 0 ? JSON.stringify(benefitsEnArray) : null
     }
 
+    if (imageUrl !== undefined) updateData.imageUrl = imageUrl || null
     if (duration !== undefined) updateData.duration = parseInt(duration)
     if (price !== undefined) updateData.price = parseFloat(price)
     if (category !== undefined) updateData.category = category
