@@ -5,7 +5,13 @@ import { useEffect, useState } from "react"
 type Service = {
   id: string
   name: string
+  nameEn: string | null
   description: string | null
+  descriptionEn: string | null
+  fullDescription: string | null
+  fullDescriptionEn: string | null
+  benefits: string | null
+  benefitsEn: string | null
   duration: number
   price: number
   category: string
@@ -17,10 +23,17 @@ export default function ServicesPage() {
   const [loading, setLoading] = useState(true)
   const [editingService, setEditingService] = useState<Service | null>(null)
   const [isCreating, setIsCreating] = useState(false)
+  const [activeTab, setActiveTab] = useState<"es" | "en">("es")
 
   const [formData, setFormData] = useState({
     name: "",
+    nameEn: "",
     description: "",
+    descriptionEn: "",
+    fullDescription: "",
+    fullDescriptionEn: "",
+    benefits: "",
+    benefitsEn: "",
     duration: 60,
     price: 0,
     category: "facial",
@@ -102,9 +115,38 @@ export default function ServicesPage() {
 
   const startEditing = (service: Service) => {
     setEditingService(service)
+
+    // Convert benefits from JSON array to line-separated text
+    let benefitsText = ""
+    let benefitsEnText = ""
+
+    try {
+      if (service.benefits) {
+        const benefitsArray = JSON.parse(service.benefits)
+        benefitsText = Array.isArray(benefitsArray) ? benefitsArray.join('\n') : ""
+      }
+    } catch (e) {
+      benefitsText = service.benefits || ""
+    }
+
+    try {
+      if (service.benefitsEn) {
+        const benefitsEnArray = JSON.parse(service.benefitsEn)
+        benefitsEnText = Array.isArray(benefitsEnArray) ? benefitsEnArray.join('\n') : ""
+      }
+    } catch (e) {
+      benefitsEnText = service.benefitsEn || ""
+    }
+
     setFormData({
       name: service.name,
+      nameEn: service.nameEn || "",
       description: service.description || "",
+      descriptionEn: service.descriptionEn || "",
+      fullDescription: service.fullDescription || "",
+      fullDescriptionEn: service.fullDescriptionEn || "",
+      benefits: benefitsText,
+      benefitsEn: benefitsEnText,
       duration: service.duration,
       price: service.price,
       category: service.category,
@@ -118,7 +160,13 @@ export default function ServicesPage() {
     setIsCreating(false)
     setFormData({
       name: "",
+      nameEn: "",
       description: "",
+      descriptionEn: "",
+      fullDescription: "",
+      fullDescriptionEn: "",
+      benefits: "",
+      benefitsEn: "",
       duration: 60,
       price: 0,
       category: "facial",
@@ -155,20 +203,8 @@ export default function ServicesPage() {
             {editingService ? "Editar Servicio" : "Nuevo Servicio"}
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Basic Info */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Nombre del Servicio
-                </label>
-                <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                />
-              </div>
-
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Categoría
@@ -216,34 +252,165 @@ export default function ServicesPage() {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                 />
               </div>
+
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="active"
+                  checked={formData.active}
+                  onChange={(e) => setFormData({ ...formData, active: e.target.checked })}
+                  className="w-4 h-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded"
+                />
+                <label htmlFor="active" className="text-sm font-medium text-gray-700">
+                  Servicio activo
+                </label>
+              </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Descripción
-              </label>
-              <textarea
-                value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                rows={3}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-              />
+            {/* Language Tabs */}
+            <div className="border-b border-gray-200">
+              <nav className="-mb-px flex space-x-8">
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("es")}
+                  className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                    activeTab === "es"
+                      ? "border-teal-500 text-teal-600"
+                      : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  }`}
+                >
+                  Español
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("en")}
+                  className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                    activeTab === "en"
+                      ? "border-teal-500 text-teal-600"
+                      : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  }`}
+                >
+                  English
+                </button>
+              </nav>
             </div>
 
-            <div className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                id="active"
-                checked={formData.active}
-                onChange={(e) => setFormData({ ...formData, active: e.target.checked })}
-                className="w-4 h-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded"
-              />
-              <label htmlFor="active" className="text-sm font-medium text-gray-700">
-                Servicio activo
-              </label>
-            </div>
+            {/* Spanish Fields */}
+            {activeTab === "es" && (
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Nombre del Servicio (Español)
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    required
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                  />
+                </div>
 
-            <div className="flex space-x-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Descripción Corta (Español)
+                  </label>
+                  <textarea
+                    value={formData.description}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    rows={2}
+                    placeholder="Descripción breve para la lista"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Descripción Completa (Español)
+                  </label>
+                  <textarea
+                    value={formData.fullDescription}
+                    onChange={(e) => setFormData({ ...formData, fullDescription: e.target.value })}
+                    rows={4}
+                    placeholder="Descripción detallada del tratamiento"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Beneficios (Español) - Uno por línea
+                  </label>
+                  <textarea
+                    value={formData.benefits}
+                    onChange={(e) => setFormData({ ...formData, benefits: e.target.value })}
+                    rows={5}
+                    placeholder="Deja la piel más suave&#10;Mejora la textura&#10;Estimula la renovación celular"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">Escribe cada beneficio en una línea nueva</p>
+                </div>
+              </div>
+            )}
+
+            {/* English Fields */}
+            {activeTab === "en" && (
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Service Name (English)
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.nameEn}
+                    onChange={(e) => setFormData({ ...formData, nameEn: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Short Description (English)
+                  </label>
+                  <textarea
+                    value={formData.descriptionEn}
+                    onChange={(e) => setFormData({ ...formData, descriptionEn: e.target.value })}
+                    rows={2}
+                    placeholder="Brief description for the list"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Full Description (English)
+                  </label>
+                  <textarea
+                    value={formData.fullDescriptionEn}
+                    onChange={(e) => setFormData({ ...formData, fullDescriptionEn: e.target.value })}
+                    rows={4}
+                    placeholder="Detailed description of the treatment"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Benefits (English) - One per line
+                  </label>
+                  <textarea
+                    value={formData.benefitsEn}
+                    onChange={(e) => setFormData({ ...formData, benefitsEn: e.target.value })}
+                    rows={5}
+                    placeholder="Leaves skin softer&#10;Improves texture&#10;Stimulates cellular renewal"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">Write each benefit on a new line</p>
+                </div>
+              </div>
+            )}
+
+            <div className="flex space-x-4 pt-4">
               <button
                 type="submit"
                 className="px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors font-semibold"

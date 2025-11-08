@@ -30,12 +30,35 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json()
-    const { name, description, duration, price, category, active } = body
+    const {
+      name,
+      nameEn,
+      description,
+      descriptionEn,
+      fullDescription,
+      fullDescriptionEn,
+      benefits,
+      benefitsEn,
+      duration,
+      price,
+      category,
+      active
+    } = body
+
+    // Convert benefits from text (line-separated) to JSON array
+    const benefitsArray = benefits ? benefits.split('\n').filter((b: string) => b.trim()) : []
+    const benefitsEnArray = benefitsEn ? benefitsEn.split('\n').filter((b: string) => b.trim()) : []
 
     const service = await prisma.service.create({
       data: {
         name,
-        description,
+        nameEn: nameEn || null,
+        description: description || null,
+        descriptionEn: descriptionEn || null,
+        fullDescription: fullDescription || null,
+        fullDescriptionEn: fullDescriptionEn || null,
+        benefits: benefitsArray.length > 0 ? JSON.stringify(benefitsArray) : null,
+        benefitsEn: benefitsEnArray.length > 0 ? JSON.stringify(benefitsEnArray) : null,
         duration: parseInt(duration),
         price: parseFloat(price),
         category,

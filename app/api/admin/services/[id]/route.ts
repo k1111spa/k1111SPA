@@ -14,11 +14,39 @@ export async function PATCH(
 
     const { id } = await params
     const body = await request.json()
-    const { name, description, duration, price, category, active } = body
+    const {
+      name,
+      nameEn,
+      description,
+      descriptionEn,
+      fullDescription,
+      fullDescriptionEn,
+      benefits,
+      benefitsEn,
+      duration,
+      price,
+      category,
+      active
+    } = body
 
     const updateData: any = {}
     if (name !== undefined) updateData.name = name
-    if (description !== undefined) updateData.description = description
+    if (nameEn !== undefined) updateData.nameEn = nameEn || null
+    if (description !== undefined) updateData.description = description || null
+    if (descriptionEn !== undefined) updateData.descriptionEn = descriptionEn || null
+    if (fullDescription !== undefined) updateData.fullDescription = fullDescription || null
+    if (fullDescriptionEn !== undefined) updateData.fullDescriptionEn = fullDescriptionEn || null
+
+    // Convert benefits from text (line-separated) to JSON array
+    if (benefits !== undefined) {
+      const benefitsArray = benefits ? benefits.split('\n').filter((b: string) => b.trim()) : []
+      updateData.benefits = benefitsArray.length > 0 ? JSON.stringify(benefitsArray) : null
+    }
+    if (benefitsEn !== undefined) {
+      const benefitsEnArray = benefitsEn ? benefitsEn.split('\n').filter((b: string) => b.trim()) : []
+      updateData.benefitsEn = benefitsEnArray.length > 0 ? JSON.stringify(benefitsEnArray) : null
+    }
+
     if (duration !== undefined) updateData.duration = parseInt(duration)
     if (price !== undefined) updateData.price = parseFloat(price)
     if (category !== undefined) updateData.category = category

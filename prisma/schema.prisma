@@ -69,15 +69,21 @@ model VerificationToken {
 
 // Services offered at the spa
 model Service {
-  id          String   @id @default(cuid())
-  name        String
-  description String?
-  duration    Int      // Duration in minutes
-  price       Float
-  category    String   // "facial" or "body"
-  active      Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id              String   @id @default(cuid())
+  name            String
+  nameEn          String?  // English name
+  description     String?  // Short description (Spanish)
+  descriptionEn   String?  // Short description (English)
+  fullDescription String?  // Full description (Spanish)
+  fullDescriptionEn String? // Full description (English)
+  benefits        String?  // JSON array of benefits (Spanish)
+  benefitsEn      String?  // JSON array of benefits (English)
+  duration        Int      // Duration in minutes
+  price           Float
+  category        String   // "facial" or "body"
+  active          Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   appointments Appointment[]
 }
