@@ -105,6 +105,40 @@ export default function KLifeSpaPage() {
             description: "Tratamiento estético que renueva las capas superficiales de la piel mediante la aplicación de ácidos o sustancias químicas controladas. Su objetivo es mejorar la textura, el tono y el aspecto general de la piel.",
             benefits: []
           },
+          {
+            name: "Dermapen (Microneedle)",
+            description: "Crea microcanales en la piel que permiten una mayor penetración de principios activos, potenciando su efecto. Los activos se eligen según el objetivo (luminosidad, firmeza, regeneración, despigmentación, etc.).",
+            benefits: []
+          },
+          {
+            name: "ADN de Salmón (PDRN)",
+            description: "Regenerador celular potente. Estimula la producción de colágeno y elastina, mejora textura, luminosidad y firmeza. Favorece la reparación tisular (ideal para piel dañada o envejecida). Frecuencia recomendada: Cada 3 a 4 semanas, en un protocolo de 3 a 5 sesiones.",
+            benefits: [
+              "Estimula la producción de colágeno y elastina",
+              "Mejora textura, luminosidad y firmeza",
+              "Favorece la reparación tisular",
+              "Piel más uniforme, jugosa y con aspecto saludable"
+            ]
+          },
+          {
+            name: "Exosomas",
+            description: "Vesículas extracelulares derivadas de células madre mesenquimales. Potentes mensajeros biológicos que estimulan la regeneración celular y reducen la inflamación. Efecto rejuvenecedor global, piel más elástica y radiante.",
+            benefits: [
+              "Repara daño cutáneo",
+              "Mejora arrugas finas y firmeza",
+              "Regula pigmentación y uniformiza el tono",
+              "Acelera la recuperación tras procedimientos estéticos"
+            ]
+          },
+          {
+            name: "Pink Glow",
+            description: "Mezcla de péptidos, vitaminas (A, C, E, B5), ácido hialurónico y agentes despigmentantes. Da un efecto de luminosidad y tono uniforme al rostro.",
+            benefits: [
+              "Aclara manchas y reduce la opacidad",
+              "Mejora la hidratación y elasticidad",
+              "Da un aspecto 'glow' o de piel radiante inmediata"
+            ]
+          },
         ],
       },
       bodyServices: {
@@ -225,6 +259,40 @@ export default function KLifeSpaPage() {
             name: "Chemical Peel",
             description: "Aesthetic treatment that renews the superficial layers of the skin through the application of controlled acids or chemical substances. Its goal is to improve texture, tone, and overall skin appearance.",
             benefits: []
+          },
+          {
+            name: "Dermapen (Microneedle)",
+            description: "Creates microchannels in the skin that allow greater penetration of active ingredients, enhancing their effect. Actives are chosen according to the goal (brightness, firmness, regeneration, depigmentation, etc.).",
+            benefits: []
+          },
+          {
+            name: "Salmon DNA (PDRN)",
+            description: "Powerful cellular regenerator. Stimulates collagen and elastin production, improves texture, luminosity and firmness. Promotes tissue repair (ideal for damaged or aged skin). Recommended frequency: Every 3 to 4 weeks, in a protocol of 3 to 5 sessions.",
+            benefits: [
+              "Stimulates collagen and elastin production",
+              "Improves texture, luminosity and firmness",
+              "Promotes tissue repair",
+              "More uniform, juicy and healthy-looking skin"
+            ]
+          },
+          {
+            name: "Exosomes",
+            description: "Extracellular vesicles derived from mesenchymal stem cells. Powerful biological messengers that stimulate cellular regeneration and reduce inflammation. Global rejuvenating effect, more elastic and radiant skin.",
+            benefits: [
+              "Repairs skin damage",
+              "Improves fine wrinkles and firmness",
+              "Regulates pigmentation and evens tone",
+              "Accelerates recovery after aesthetic procedures"
+            ]
+          },
+          {
+            name: "Pink Glow",
+            description: "Blend of peptides, vitamins (A, C, E, B5), hyaluronic acid and depigmenting agents. Gives a luminosity and even tone effect to the face.",
+            benefits: [
+              "Lightens spots and reduces dullness",
+              "Improves hydration and elasticity",
+              "Gives an immediate 'glow' or radiant skin appearance"
+            ]
           },
         ],
       },
