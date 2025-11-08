@@ -1,19 +1,9 @@
 import { PrismaClient } from "@prisma/client"
-import { PrismaNeon } from '@prisma/adapter-neon'
-import { Pool } from '@neondatabase/serverless'
 import bcrypt from "bcryptjs"
 
-// Use Neon adapter for PostgreSQL connections (required for Vercel serverless)
-function createPrismaClient() {
-  if (process.env.DATABASE_URL?.includes('neon') || process.env.DATABASE_URL?.includes('postgres')) {
-    const pool = new Pool({ connectionString: process.env.DATABASE_URL })
-    const adapter = new PrismaNeon(pool)
-    return new PrismaClient({ adapter })
-  }
-  return new PrismaClient()
-}
-
-const prisma = createPrismaClient()
+// For seeding, use standard PrismaClient which works with both SQLite and PostgreSQL
+// The Neon adapter is only needed for runtime queries in the serverless environment
+const prisma = new PrismaClient()
 
 async function main() {
   console.log("🌱 Starting database seeding...")
