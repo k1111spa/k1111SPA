@@ -613,7 +613,6 @@ Nuestros servicios incluyen:
 
 📍 Ubicación: Coral Gables
 📞 Teléfono: 305.680.6500
-📧 Email: klifeaestheticspa@gmail.com
 
 Pronto nos comunicaremos contigo para agendar tu cita.
 
