@@ -326,7 +326,7 @@ export default function KLifeSpaPage() {
           </div>
 
           {/* Tagline */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-4">
             <p className="text-4xl md:text-5xl text-white tracking-wide drop-shadow-lg" style={{ fontFamily: "'Californian Signature', cursive" }}>
               — A special space for you —
             </p>
