@@ -413,8 +413,8 @@ export default function KLifeSpaPage() {
           {showFacialServices && (
             <div className="animate-fadeIn">
               <div className="text-center mb-8">
-                <p className="text-xl text-gray-900 font-semibold italic">{t.facialServices.subtitle}</p>
-                <p className="text-gray-800 mt-2">{t.facialServices.description}</p>
+                <p className="text-xl text-white font-semibold italic">{t.facialServices.subtitle}</p>
+                <p className="text-white mt-2">{t.facialServices.description}</p>
               </div>
               <div className="grid md:grid-cols-2 gap-8">
                 {t.facialServices.services.map((service: any, index: number) => {
