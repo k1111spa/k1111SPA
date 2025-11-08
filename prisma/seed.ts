@@ -150,7 +150,7 @@ async function main() {
       fullDescriptionEn: "Blend of peptides, vitamins (A, C, E, B5), hyaluronic acid and depigmenting agents. Gives a luminosity and even tone effect to the face.",
       benefits: JSON.stringify(["Aclara manchas y reduce la opacidad", "Mejora la hidratación y elasticidad", "Da un aspecto 'glow' o de piel radiante inmediata"]),
       benefitsEn: JSON.stringify(["Lightens spots and reduces dullness", "Improves hydration and elasticity", "Gives an immediate 'glow' or radiant skin appearance"]),
-      imageUrl: "/images/pink-glow.jpg",
+      imageUrl: "/images/pink-glow.png",
       duration: 60,
       price: 130.0,
       category: "facial",
