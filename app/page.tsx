@@ -66,7 +66,7 @@ export default function KLifeSpaPage() {
       facialServices: {
         title: "Tratamientos Faciales",
         subtitle: "Limpieza profunda con:",
-        description: "3 métodos distintos de limpieza facial profunda de acuerdo al tipo de piel de la persona y lo que necesite",
+        description: "Métodos avanzados de limpieza facial profunda de acuerdo al tipo de piel y necesidades específicas",
         services: [
           {
             name: "Dermaplaning",
