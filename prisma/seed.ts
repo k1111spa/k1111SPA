@@ -5,6 +5,15 @@ const prisma = new PrismaClient()
 
 async function main() {
   console.log("🌱 Starting database seeding...")
+  console.log("📊 DATABASE_URL:", process.env.DATABASE_URL ? "✅ Set" : "❌ Missing")
+
+  try {
+    await prisma.$connect()
+    console.log("✅ Database connection successful")
+  } catch (error) {
+    console.error("❌ Database connection failed:", error)
+    throw error
+  }
 
   // Create admin user (Kimberly)
   const hashedPassword = await bcrypt.hash("kimberly123", 10)
