@@ -314,7 +314,7 @@ export default function KLifeSpaPage() {
       <section className="relative z-10 pt-24 pb-16 px-4 backdrop-blur-sm" style={{ background: 'linear-gradient(45deg, rgba(125, 211, 192, 0.7) 0%, rgba(179, 224, 220, 0.6) 50%, rgba(217, 240, 238, 0.5) 100%)' }}>
         <div className="container mx-auto max-w-6xl">
           {/* Logo centrado */}
-          <div className="w-full max-w-md mx-auto mb-8">
+          <div className="w-full max-w-md mx-auto mb-2">
             <Image
               src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/KLIFE1111-logo-OrZz7hBKj2TTuXjj6DRAtgi1p9IYZE.png"
               alt="K Life 1111 Logo"
@@ -326,7 +326,7 @@ export default function KLifeSpaPage() {
           </div>
 
           {/* Tagline */}
-          <div className="text-center mb-4">
+          <div className="text-center mb-6">
             <p className="text-4xl md:text-5xl text-white tracking-wide drop-shadow-lg" style={{ fontFamily: "'Californian Signature', cursive" }}>
               — A special space for you —
             </p>
