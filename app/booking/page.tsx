@@ -12,6 +12,7 @@ type Service = {
   duration: number
   price: number
   category: string
+  active: boolean
 }
 
 type Availability = {
