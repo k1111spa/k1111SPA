@@ -1,0 +1,11 @@
+{
+  "buildCommand": "pnpm run build",
+  "devCommand": "pnpm run dev",
+  "installCommand": "pnpm install",
+  "framework": "nextjs",
+  "env": {
+    "NEXTAUTH_URL": "https://k1111spa.life",
+    "NEXTAUTH_SECRET": "fO4luV4TN3fZ7/OMorCBR+sbsoZcSNDFWP4P9u70lyo=",
+    "DATABASE_URL": "file:./prod.db"
+  }
+}
