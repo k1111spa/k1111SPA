@@ -123,6 +123,30 @@ export default function KLifeSpaPage() {
           },
         ],
       },
+      testimonials: {
+        title: "Lo Que Dicen Nuestras Clientas",
+        subtitle: "Experiencias Reales",
+        reviews: [
+          {
+            name: "María González",
+            service: "Hidrafacial",
+            text: "¡Increíble experiencia! Mi piel nunca se había sentido tan suave y radiante. Kimberly es una profesional excepcional.",
+            rating: 5
+          },
+          {
+            name: "Sofia Ramirez",
+            service: "Exosomas",
+            text: "El tratamiento de exosomas superó todas mis expectativas. Los resultados son visibles desde la primera sesión. 100% recomendado.",
+            rating: 5
+          },
+          {
+            name: "Ana Martinez",
+            service: "Masaje con Piedras Calientes",
+            text: "El masaje más relajante que he recibido. El ambiente es perfecto y la atención es personalizada. Volveré sin duda.",
+            rating: 5
+          }
+        ]
+      },
       contact: {
         title: "Contáctanos",
         subtitle: "Agenda tu cita hoy",
@@ -219,6 +243,30 @@ export default function KLifeSpaPage() {
             ]
           },
         ],
+      },
+      testimonials: {
+        title: "What Our Clients Say",
+        subtitle: "Real Experiences",
+        reviews: [
+          {
+            name: "María González",
+            service: "Hydrafacial",
+            text: "Amazing experience! My skin has never felt so smooth and radiant. Kimberly is an exceptional professional.",
+            rating: 5
+          },
+          {
+            name: "Sofia Ramirez",
+            service: "Exosomes",
+            text: "The exosome treatment exceeded all my expectations. Results are visible from the first session. 100% recommended.",
+            rating: 5
+          },
+          {
+            name: "Ana Martinez",
+            service: "Hot Stone Massage",
+            text: "The most relaxing massage I've ever received. The atmosphere is perfect and the attention is personalized. I'll definitely be back.",
+            rating: 5
+          }
+        ]
       },
       contact: {
         title: "Contact Us",
@@ -501,6 +549,43 @@ export default function KLifeSpaPage() {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <section className="relative z-10 py-20 px-4 bg-gradient-to-br from-gray-50 to-white">
+        <div className="container mx-auto max-w-6xl">
+          <h2 className="text-4xl font-bold text-center bg-gradient-to-r from-[#7DD3C0] to-[#B3E0DC] bg-clip-text text-transparent mb-4">
+            {t.testimonials.title}
+          </h2>
+          <p className="text-xl text-center text-gray-600 mb-12">{t.testimonials.subtitle}</p>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {t.testimonials.reviews.map((review, index) => (
+              <div
+                key={index}
+                className="bg-white p-8 rounded-2xl shadow-lg border border-[#B3E0DC] hover:shadow-xl transition-all"
+              >
+                <div className="flex mb-4">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <svg
+                      key={i}
+                      className="w-5 h-5 text-yellow-400"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+                <p className="text-gray-700 mb-6 italic">"{review.text}"</p>
+                <div className="border-t border-gray-200 pt-4">
+                  <p className="font-semibold text-gray-900">{review.name}</p>
+                  <p className="text-sm text-[#7DD3C0]">{review.service}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Contact Form */}
       <section id="contact" className="relative z-10 py-20 px-4 backdrop-blur-sm" style={{ background: 'linear-gradient(45deg, rgba(125, 211, 192, 0.6) 0%, rgba(179, 224, 220, 0.5) 50%, rgba(217, 240, 238, 0.6) 100%)' }}>
         <div className="container mx-auto max-w-2xl">
@@ -623,15 +708,12 @@ Este es un mensaje automático de confirmación. Por favor no respondas a este e
       {/* Footer */}
       <footer className="relative z-10 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-16 px-4">
         <div className="container mx-auto max-w-6xl">
-          <div className="grid md:grid-cols-3 gap-12 text-center md:text-left">
+          <div className="grid md:grid-cols-2 gap-12 text-center md:text-left">
             {/* Brand Section */}
             <div className="space-y-4">
               <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-[#B3E0DC] to-[#7DD3C0] bg-clip-text text-transparent">
                 K1111 Spa
               </h3>
-              <p className="text-gray-300 leading-relaxed">
-                {language === "es" ? "Tu destino de lujo para el bienestar y la belleza." : "Your luxury destination for wellness and beauty."}
-              </p>
               <div className="flex justify-center md:justify-start gap-4 pt-2">
                 <a
                   href="https://wa.me/13056806500"
@@ -661,38 +743,6 @@ Este es un mensaje automático de confirmación. Por favor no respondas a este e
                   <span className="text-[#B3E0DC]">📅</span>
                   {t.footer.sundayText}
                 </p>
-              </div>
-            </div>
-
-            {/* Contact Section */}
-            <div className="space-y-4">
-              <h4 className="text-lg font-semibold mb-4 text-[#B3E0DC] uppercase tracking-wider">
-                {t.footer.contact}
-              </h4>
-              <div className="space-y-3">
-                <a
-                  href="mailto:k1111marketing@gmail.com"
-                  className="text-gray-300 hover:text-[#B3E0DC] transition-colors flex items-center justify-center md:justify-start gap-2 group"
-                >
-                  <span className="text-[#B3E0DC] group-hover:scale-110 transition-transform">✉️</span>
-                  <span className="break-all">k1111marketing@gmail.com</span>
-                </a>
-                <a
-                  href="tel:+13056806500"
-                  className="text-gray-300 hover:text-[#B3E0DC] transition-colors flex items-center justify-center md:justify-start gap-2 group"
-                >
-                  <span className="text-[#B3E0DC] group-hover:scale-110 transition-transform">📞</span>
-                  <span>305.680.6500</span>
-                </a>
-                <a
-                  href="https://wa.me/13056806500"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-300 hover:text-green-400 transition-colors flex items-center justify-center md:justify-start gap-2 group"
-                >
-                  <span className="text-green-400 group-hover:scale-110 transition-transform">💬</span>
-                  <span>WhatsApp</span>
-                </a>
               </div>
             </div>
           </div>
