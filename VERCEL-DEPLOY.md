@@ -1,5 +1,7 @@
 # Vercel Deployment Instructions for K Life Spa
 
+Last Updated: November 8, 2025
+
 ## Quick Deploy Steps
 
 ### 1. Go to Vercel
