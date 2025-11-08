@@ -536,11 +536,21 @@ export default function KLifeSpaPage() {
                 {t.facialServices.services.map((service: any, index: number) => {
                   const getServiceImage = (serviceName: string) => {
                     const imageMap: { [key: string]: string } = {
-                      'Dermaplaning': '/images/dermapen.jpg',
+                      'Dermaplaning': '/images/dermaplaning.jpg',
                       'Hidrafacial': '/images/hydrofacial.jpg',
                       'Microdermoabrasión': '/images/microdermobrasion.jpg',
+                      'Peeling Químico': '/images/peeling-quimico.jpg',
+                      'Dermapen (Microneedle)': '/images/dermapen.jpg',
+                      'ADN de Salmón (PDRN)': '/images/adn-salmon.jpg',
+                      'Exosomas': '/images/exosomas.jpg',
+                      'Pink Glow': '/images/pink-glow.jpg',
                       'Hydrafacial': '/images/hydrofacial.jpg',
                       'Microdermabrasion': '/images/microdermobrasion.jpg',
+                      'Chemical Peel': '/images/peeling-quimico.jpg',
+                      'Salmon DNA (PDRN)': '/images/adn-salmon.jpg',
+                      'Venus Legacy': '/images/venus-legacy.jpg',
+                      'Masaje Relajante con Piedras Calientes': '/images/masaje-piedras-calientes.jpg',
+                      'Hot Stone Massage': '/images/masaje-piedras-calientes.jpg',
                     }
                     return imageMap[serviceName] || 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&h=600&fit=crop'
                   }
@@ -586,11 +596,21 @@ export default function KLifeSpaPage() {
                 {t.bodyServices.services.map((service: any, index: number) => {
                   const getServiceImage = (serviceName: string) => {
                     const imageMap: { [key: string]: string } = {
-                      'Dermaplaning': '/images/dermapen.jpg',
+                      'Dermaplaning': '/images/dermaplaning.jpg',
                       'Hidrafacial': '/images/hydrofacial.jpg',
                       'Microdermoabrasión': '/images/microdermobrasion.jpg',
+                      'Peeling Químico': '/images/peeling-quimico.jpg',
+                      'Dermapen (Microneedle)': '/images/dermapen.jpg',
+                      'ADN de Salmón (PDRN)': '/images/adn-salmon.jpg',
+                      'Exosomas': '/images/exosomas.jpg',
+                      'Pink Glow': '/images/pink-glow.jpg',
                       'Hydrafacial': '/images/hydrofacial.jpg',
                       'Microdermabrasion': '/images/microdermobrasion.jpg',
+                      'Chemical Peel': '/images/peeling-quimico.jpg',
+                      'Salmon DNA (PDRN)': '/images/adn-salmon.jpg',
+                      'Venus Legacy': '/images/venus-legacy.jpg',
+                      'Masaje Relajante con Piedras Calientes': '/images/masaje-piedras-calientes.jpg',
+                      'Hot Stone Massage': '/images/masaje-piedras-calientes.jpg',
                     }
                     return imageMap[serviceName] || 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&h=600&fit=crop'
                   }
