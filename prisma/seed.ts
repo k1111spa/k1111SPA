@@ -57,6 +57,38 @@ async function main() {
       category: "facial",
       active: true,
     },
+    {
+      name: "Dermapen (Microneedle)",
+      description: "Crea microcanales en la piel que permiten una mayor penetración de principios activos, potenciando su efecto. Los activos se eligen según el objetivo (luminosidad, firmeza, regeneración, despigmentación, etc.)",
+      duration: 75,
+      price: 150.0,
+      category: "facial",
+      active: true,
+    },
+    {
+      name: "ADN de Salmón (PDRN)",
+      description: "Regenerador celular potente que estimula la producción de colágeno y elastina. Mejora textura, luminosidad y firmeza. Favorece la reparación tisular ideal para piel dañada o envejecida. Piel más uniforme, jugosa y con aspecto saludable. Frecuencia: cada 3-4 semanas, protocolo de 3-5 sesiones",
+      duration: 60,
+      price: 180.0,
+      category: "facial",
+      active: true,
+    },
+    {
+      name: "Exosomas",
+      description: "Vesículas extracelulares derivadas de células madre mesenquimales. Potentes mensajeros biológicos que estimulan la regeneración celular y reducen la inflamación. Repara daño cutáneo, mejora arrugas finas y firmeza, regula pigmentación y uniformiza el tono. Acelera la recuperación tras procedimientos estéticos. Efecto rejuvenecedor global, piel más elástica y radiante",
+      duration: 75,
+      price: 250.0,
+      category: "facial",
+      active: true,
+    },
+    {
+      name: "Pink Glow",
+      description: "Mezcla de péptidos, vitaminas (A, C, E, B5), ácido hialurónico y agentes despigmentantes. Da efecto de luminosidad y tono uniforme al rostro. Aclara manchas y reduce la opacidad, mejora la hidratación y elasticidad. Aspecto glow o piel radiante inmediata",
+      duration: 60,
+      price: 130.0,
+      category: "facial",
+      active: true,
+    },
   ]
 
   for (const service of facialServices) {
@@ -85,6 +117,14 @@ async function main() {
       description: "Masaje completo de cuerpo para relajación profunda",
       duration: 90,
       price: 100.0,
+      category: "body",
+      active: true,
+    },
+    {
+      name: "Masaje Relajante con Piedras Calientes",
+      description: "Masaje terapéutico con piedras volcánicas calientes que relajan los músculos profundamente, mejoran la circulación y proporcionan una sensación de bienestar total",
+      duration: 90,
+      price: 120.0,
       category: "body",
       active: true,
     },
