@@ -1,0 +1,68 @@
+2025-11-07T20:29:13:  ⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+2025-11-07T20:29:13:  ⚠ Invalid next.config.mjs options detected: 
+2025-11-07T20:29:13:  ⚠     Unrecognized key(s) in object: 'eslint'
+2025-11-07T20:29:13:  ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+2025-11-07T21:03:09:  ⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+2025-11-07T21:03:09:  ⚠ Invalid next.config.mjs options detected: 
+2025-11-07T21:03:09:  ⚠     Unrecognized key(s) in object: 'eslint'
+2025-11-07T21:03:09:  ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+2025-11-07T21:12:24:  ⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+2025-11-07T21:12:24:  ⚠ Invalid next.config.mjs options detected: 
+2025-11-07T21:12:24:  ⚠     Unrecognized key(s) in object: 'eslint'
+2025-11-07T21:12:24:  ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+2025-11-07T21:17:50:  ⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+2025-11-07T21:17:50:  ⚠ Invalid next.config.mjs options detected: 
+2025-11-07T21:17:50:  ⚠     Unrecognized key(s) in object: 'eslint'
+2025-11-07T21:17:50:  ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+2025-11-08T00:41:47:  ⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+2025-11-08T00:41:47:  ⚠ Invalid next.config.mjs options detected: 
+2025-11-08T00:41:47:  ⚠     Unrecognized key(s) in object: 'eslint'
+2025-11-08T00:41:47:  ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+2025-11-08T00:45:59:  ⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+2025-11-08T00:45:59:  ⚠ Invalid next.config.mjs options detected: 
+2025-11-08T00:45:59:  ⚠     Unrecognized key(s) in object: 'eslint'
+2025-11-08T00:45:59:  ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+2025-11-08T00:48:02:  ⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+2025-11-08T00:48:02:  ⚠ Invalid next.config.mjs options detected: 
+2025-11-08T00:48:02:  ⚠     Unrecognized key(s) in object: 'eslint'
+2025-11-08T00:48:02:  ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+2025-11-08T00:50:18:  ⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+2025-11-08T00:50:18:  ⚠ Invalid next.config.mjs options detected: 
+2025-11-08T00:50:18:  ⚠     Unrecognized key(s) in object: 'eslint'
+2025-11-08T00:50:18:  ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+2025-11-08T00:51:54:  ⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+2025-11-08T00:51:54:  ⚠ Invalid next.config.mjs options detected: 
+2025-11-08T00:51:54:  ⚠     Unrecognized key(s) in object: 'eslint'
+2025-11-08T00:51:54:  ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+2025-11-08T00:53:20:  ⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+2025-11-08T00:53:20:  ⚠ Invalid next.config.mjs options detected: 
+2025-11-08T00:53:20:  ⚠     Unrecognized key(s) in object: 'eslint'
+2025-11-08T00:53:20:  ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+2025-11-08T00:55:09:  ⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+2025-11-08T00:55:09:  ⚠ Invalid next.config.mjs options detected: 
+2025-11-08T00:55:09:  ⚠     Unrecognized key(s) in object: 'eslint'
+2025-11-08T00:55:09:  ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+2025-11-08T00:56:51:  ⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+2025-11-08T00:56:51:  ⚠ Invalid next.config.mjs options detected: 
+2025-11-08T00:56:51:  ⚠     Unrecognized key(s) in object: 'eslint'
+2025-11-08T00:56:51:  ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+2025-11-08T00:58:51:  ⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+2025-11-08T00:58:51:  ⚠ Invalid next.config.mjs options detected: 
+2025-11-08T00:58:51:  ⚠     Unrecognized key(s) in object: 'eslint'
+2025-11-08T00:58:51:  ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+2025-11-08T02:52:31:  ⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+2025-11-08T02:52:31:  ⚠ Invalid next.config.mjs options detected: 
+2025-11-08T02:52:31:  ⚠     Unrecognized key(s) in object: 'eslint'
+2025-11-08T02:52:31:  ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+2025-11-08T02:55:35:  ⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+2025-11-08T02:55:35:  ⚠ Invalid next.config.mjs options detected: 
+2025-11-08T02:55:35:  ⚠     Unrecognized key(s) in object: 'eslint'
+2025-11-08T02:55:35:  ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+2025-11-08T02:57:04:  ⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+2025-11-08T02:57:04:  ⚠ Invalid next.config.mjs options detected: 
+2025-11-08T02:57:04:  ⚠     Unrecognized key(s) in object: 'eslint'
+2025-11-08T02:57:04:  ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+2025-11-08T03:05:03:  ⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+2025-11-08T03:05:03:  ⚠ Invalid next.config.mjs options detected: 
+2025-11-08T03:05:03:  ⚠     Unrecognized key(s) in object: 'eslint'
+2025-11-08T03:05:03:  ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="spaGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#B3E0DC;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#9BCCC8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D9F0EE;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="48" fill="url(#spaGradient)"/>
+
+  <!-- K letter -->
+  <text x="50" y="70" font-family="serif" font-size="60" font-weight="bold" fill="white" text-anchor="middle" style="font-style: italic;">K</text>
+
+  <!-- Decorative spa elements (leaf/flower accent) -->
+  <path d="M 50 20 Q 45 25, 50 30 Q 55 25, 50 20" fill="white" opacity="0.8"/>
+  <circle cx="50" cy="32" r="2" fill="white" opacity="0.8"/>
+</svg>
