@@ -60,11 +60,12 @@ async function main() {
   ]
 
   for (const service of facialServices) {
-    await prisma.service.upsert({
-      where: { id: service.name },
-      update: {},
-      create: service,
+    const existing = await prisma.service.findFirst({
+      where: { name: service.name },
     })
+    if (!existing) {
+      await prisma.service.create({ data: service })
+    }
   }
 
   console.log("✅ Facial services created")
@@ -98,29 +99,35 @@ async function main() {
   ]
 
   for (const service of bodyServices) {
-    await prisma.service.upsert({
-      where: { id: service.name },
-      update: {},
-      create: service,
+    const existing = await prisma.service.findFirst({
+      where: { name: service.name },
     })
+    if (!existing) {
+      await prisma.service.create({ data: service })
+    }
   }
 
   console.log("✅ Body services created")
 
-  // Create default business hours (Monday to Friday, 9 AM to 5 PM)
+  // Create default business hours (Monday to Saturday)
   const businessHours = [
-    { dayOfWeek: 1, startTime: "09:00", endTime: "17:00", active: true }, // Monday
-    { dayOfWeek: 2, startTime: "09:00", endTime: "17:00", active: true }, // Tuesday
-    { dayOfWeek: 3, startTime: "09:00", endTime: "17:00", active: true }, // Wednesday
-    { dayOfWeek: 4, startTime: "09:00", endTime: "17:00", active: true }, // Thursday
-    { dayOfWeek: 5, startTime: "09:00", endTime: "17:00", active: true }, // Friday
-    { dayOfWeek: 6, startTime: "10:00", endTime: "14:00", active: true }, // Saturday
+    { dayOfWeek: 1, startTime: "09:00", endTime: "19:00", active: true }, // Monday
+    { dayOfWeek: 2, startTime: "09:00", endTime: "19:00", active: true }, // Tuesday
+    { dayOfWeek: 3, startTime: "09:00", endTime: "19:00", active: true }, // Wednesday
+    { dayOfWeek: 4, startTime: "09:00", endTime: "19:00", active: true }, // Thursday
+    { dayOfWeek: 5, startTime: "09:00", endTime: "19:00", active: true }, // Friday
+    { dayOfWeek: 6, startTime: "09:00", endTime: "19:00", active: true }, // Saturday
   ]
 
   for (const hours of businessHours) {
-    await prisma.availability.create({
-      data: hours,
+    const existing = await prisma.availability.findFirst({
+      where: { dayOfWeek: hours.dayOfWeek },
     })
+    if (!existing) {
+      await prisma.availability.create({
+        data: hours,
+      })
+    }
   }
 
   console.log("✅ Business hours created")
