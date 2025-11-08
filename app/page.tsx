@@ -466,12 +466,16 @@ export default function KLifeSpaPage() {
               </div>
               <div className="grid md:grid-cols-2 gap-8">
                 {t.facialServices.services.map((service: any, index: number) => {
-                  const imagePaths = [
-                    "/images/services/facial/facial-cleansing.jpg",
-                    "/images/services/facial/hydrafacial.jpg",
-                    "/images/services/facial/microdermabrasion.jpg",
-                    "/images/services/facial/chemical-peel.jpg",
-                  ]
+                  const getServiceImage = (serviceName: string) => {
+                    const imageMap: { [key: string]: string } = {
+                      'Dermaplaning': '/images/dermapen.jpg',
+                      'Hidrafacial': '/images/hydrofacial.jpg',
+                      'Microdermoabrasión': '/images/microdermobrasion.jpg',
+                      'Hydrafacial': '/images/hydrofacial.jpg',
+                      'Microdermabrasion': '/images/microdermobrasion.jpg',
+                    }
+                    return imageMap[serviceName] || 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&h=600&fit=crop'
+                  }
                   return (
                     <div
                       key={index}
@@ -479,7 +483,7 @@ export default function KLifeSpaPage() {
                     >
                       <div className="mb-6 overflow-hidden rounded-xl">
                         <Image
-                          src={imagePaths[index] || "/images/placeholders/placeholder.svg"}
+                          src={getServiceImage(service.name)}
                           alt={service.name}
                           width={600}
                           height={400}
@@ -512,6 +516,17 @@ export default function KLifeSpaPage() {
             <div className="animate-fadeIn">
               <div className="grid md:grid-cols-1 gap-8">
                 {t.bodyServices.services.map((service: any, index: number) => {
+                  const getServiceImage = (serviceName: string) => {
+                    const imageMap: { [key: string]: string } = {
+                      'Dermaplaning': '/images/dermapen.jpg',
+                      'Hidrafacial': '/images/hydrofacial.jpg',
+                      'Microdermoabrasión': '/images/microdermobrasion.jpg',
+                      'Hydrafacial': '/images/hydrofacial.jpg',
+                      'Microdermabrasion': '/images/microdermobrasion.jpg',
+                    }
+                    return imageMap[serviceName] || 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&h=600&fit=crop'
+                  }
+
                   return (
                     <div
                       key={index}
@@ -519,7 +534,7 @@ export default function KLifeSpaPage() {
                     >
                       <div className="mb-6 overflow-hidden rounded-xl">
                         <Image
-                          src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&h=600&fit=crop"
+                          src={getServiceImage(service.name)}
                           alt={service.name}
                           width={1200}
                           height={600}
