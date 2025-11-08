@@ -627,7 +627,7 @@ Este es un mensaje automático de confirmación. Por favor no respondas a este e
             {/* Brand Section */}
             <div className="space-y-4">
               <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-[#B3E0DC] to-[#7DD3C0] bg-clip-text text-transparent">
-                K Life Aesthetic & Spa
+                K1111 Spa
               </h3>
               <p className="text-gray-300 leading-relaxed">
                 {language === "es" ? "Tu destino de lujo para el bienestar y la belleza." : "Your luxury destination for wellness and beauty."}
@@ -701,7 +701,7 @@ Este es un mensaje automático de confirmación. Por favor no respondas a este e
           <div className="mt-12 pt-8 border-t border-gray-700">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <p className="text-gray-400 text-sm">
-                &copy; 2025 K Life Aesthetic & Spa. {t.footer.rights}
+                &copy; 2025 K1111 Spa. {t.footer.rights}
               </p>
               <p className="text-gray-500 text-sm">
                 Coral Gables, FL
