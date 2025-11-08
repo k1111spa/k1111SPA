@@ -372,7 +372,7 @@ export default function KLifeSpaPage() {
 
               {/* CTA Button */}
               <a
-                href="#contact"
+                href="/booking"
                 className="inline-block px-8 py-3 bg-[#B3E0DC] text-gray-900 rounded-full hover:bg-[#9BCCC8] transition-all font-semibold text-lg shadow-md hover:shadow-lg hover:scale-105 mt-6"
               >
                 {t.hero.cta}
@@ -444,7 +444,7 @@ export default function KLifeSpaPage() {
                       )}
                       {service.benefits && service.benefits.length > 0 && (
                         <div className="mt-4">
-                          <h4 className="font-semibold text-[#B3E0DC] mb-2">Beneficios:</h4>
+                          <h4 className="font-semibold text-gray-900 mb-2">Beneficios:</h4>
                           <ul className="list-disc list-inside space-y-1 text-gray-600">
                             {service.benefits.map((benefit: string, i: number) => (
                               <li key={i}>{benefit}</li>
@@ -484,7 +484,7 @@ export default function KLifeSpaPage() {
                       )}
                       {service.benefits && service.benefits.length > 0 && (
                         <div className="mt-4">
-                          <h4 className="font-semibold text-[#D4AF87] mb-3 text-lg">Beneficios:</h4>
+                          <h4 className="font-semibold text-gray-900 mb-3 text-lg">Beneficios:</h4>
                           <ul className="list-disc list-inside space-y-2 text-gray-600">
                             {service.benefits.map((benefit: string, i: number) => (
                               <li key={i} className="text-base">{benefit}</li>
