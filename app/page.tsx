@@ -898,7 +898,7 @@ export default function KLifeSpaPage() {
             {/* Brand Section */}
             <div className="space-y-4">
               <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-[#B3E0DC] to-[#7DD3C0] bg-clip-text text-transparent">
-                K Life 1111 Esthetician & Spa
+                K Life 1111 Aesthetic & Spa
               </h3>
               <div className="flex justify-center md:justify-start gap-4 pt-2">
                 <a
@@ -937,7 +937,7 @@ export default function KLifeSpaPage() {
           <div className="mt-12 pt-8 border-t border-gray-700">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <p className="text-gray-400 text-sm">
-                &copy; 2025 K Life 1111 Esthetician & Spa. {t.footer.rights}
+                &copy; 2025 K Life 1111 Aesthetic & Spa. {t.footer.rights}
               </p>
               <p className="text-gray-500 text-sm">
                 Coral Gables, FL
