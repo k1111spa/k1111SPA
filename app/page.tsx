@@ -890,7 +890,7 @@ Este es un mensaje automático de confirmación. Por favor no respondas a este e
           <div className="mt-12 pt-8 border-t border-gray-700">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <p className="text-gray-400 text-sm">
-                &copy; 2025 K1111 Spa. {t.footer.rights}
+                &copy; 2025 K Life 1111 Esthetic & Spa. {t.footer.rights}
               </p>
               <p className="text-gray-500 text-sm">
                 Coral Gables, FL
