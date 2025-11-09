@@ -62,9 +62,6 @@ export default function KLifeSpaPage() {
     const formData = new FormData(form)
     formData.append("access_key", "df27a237-4c41-4f23-bd2f-1fcb9879891f")
 
-    // Email de confirmación automático al cliente
-    formData.append("autoresponse", "true")
-
     try {
       console.log("Sending form data to Web3Forms...")
       setDebugInfo("Conectando con Web3Forms...")
@@ -82,7 +79,7 @@ export default function KLifeSpaPage() {
       setDebugInfo(`Status: ${response.status}, Success: ${data.success}, Message: ${data.message || 'N/A'}`)
 
       if (data.success) {
-        setFormResult(language === "es" ? "¡Mensaje enviado exitosamente! Hemos enviado un correo de confirmación a tu email. Te contactaremos pronto." : "Message sent successfully! We've sent a confirmation email to your inbox. We'll contact you soon.")
+        setFormResult(language === "es" ? "¡Mensaje enviado exitosamente! Te contactaremos pronto." : "Message sent successfully! We'll contact you soon.")
         form.reset()
         setDebugInfo("")
       } else {
@@ -799,33 +796,8 @@ export default function KLifeSpaPage() {
             onSubmit={handleSubmit}
             className="space-y-6 bg-gradient-to-br from-[#D9F0EE] to-white p-8 rounded-2xl shadow-lg border border-[#B3E0DC]"
           >
-            <input type="hidden" name="subject" value="Nueva solicitud de cita - K Life Spa" />
-            <input type="hidden" name="from_name" value="K Life Spa" />
-
-            {/* Configuración del email de confirmación automático */}
-            <input type="hidden" name="autoresponse_subject" value="¡Gracias por contactar a K Life Aesthetic & Spa!" />
-            <input type="hidden" name="autoresponse_text" value={`Hola,
-
-¡Gracias por contactarnos! Hemos recibido tu solicitud de información y nos pondremos en contacto contigo lo antes posible.
-
-En K Life Aesthetic & Spa nos especializamos en tratamientos faciales y corporales personalizados para tu bienestar y belleza.
-
-Nuestros servicios incluyen:
-- Tratamientos Faciales: Dermaplaning, Hidrafacial, Microdermoabrasión, Peeling Químico
-- Tratamientos Corporales: Venus Legacy (reafirmación de piel, reducción de celulitis)
-
-📍 Ubicación: Coral Gables
-📞 Teléfono: 305.680.6500
-
-Pronto nos comunicaremos contigo para agendar tu cita.
-
-Con cariño,
-Kimberly Alcantara
-Esthetician & Massage Therapist
-K Life Aesthetic & Spa
-
----
-Este es un mensaje automático de confirmación. Por favor no respondas a este email.`} />
+            <input type="hidden" name="subject" value="Nueva solicitud de contacto - K Life Spa" />
+            <input type="hidden" name="from_name" value="K Life Spa Website" />
 
             <div>
               <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
