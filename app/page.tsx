@@ -495,7 +495,7 @@ export default function KLifeSpaPage() {
           {/* Diseño centrado y cohesivo */}
           <div className="text-center">
             {/* Logo centrado con efecto mejorado */}
-            <div className="mb-4">
+            <div className="mb-8">
               <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/KLIFE1111-logo-OrZz7hBKj2TTuXjj6DRAtgi1p9IYZE.png"
                 alt="K Life 1111 Logo"
@@ -509,8 +509,8 @@ export default function KLifeSpaPage() {
               />
             </div>
 
-            {/* Tagline debajo del logo */}
-            <div className="mb-8">
+            {/* Tagline arriba de la foto */}
+            <div className="mb-6">
               <div className="inline-block bg-gradient-to-r from-teal-500/95 to-teal-400/95 backdrop-blur-lg px-8 py-3 rounded-3xl shadow-2xl">
                 <p className="text-2xl md:text-3xl text-white font-medium italic" style={{ fontFamily: "'Californian Signature', cursive" }}>
                   A special space for you
