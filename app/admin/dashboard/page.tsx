@@ -131,6 +131,15 @@ export default function AdminDashboard() {
             <h3 className="font-semibold text-gray-900">Ver Página Principal</h3>
             <p className="text-sm text-gray-600">Ir al sitio público</p>
           </button>
+
+          <button
+            onClick={() => router.push("/admin/dashboard/manual")}
+            className="p-4 bg-green-50 hover:bg-green-100 rounded-lg transition-colors text-left border-2 border-green-200"
+          >
+            <div className="text-3xl mb-2">📖</div>
+            <h3 className="font-semibold text-gray-900">Manual de Uso</h3>
+            <p className="text-sm text-gray-600">Aprende a usar el admin</p>
+          </button>
         </div>
       </div>
     </div>
