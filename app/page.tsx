@@ -466,76 +466,95 @@ export default function KLifeSpaPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative z-10 pt-24 pb-16 px-4 backdrop-blur-sm" style={{ background: 'linear-gradient(45deg, rgba(125, 211, 192, 0.7) 0%, rgba(179, 224, 220, 0.6) 50%, rgba(217, 240, 238, 0.5) 100%)' }}>
-        <div className="container mx-auto max-w-5xl">
-          {/* Contenedor unificado con fondo semi-transparente */}
-          <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 md:p-12 shadow-2xl border border-white/20">
-            {/* Logo y tagline juntos */}
-            <div className="text-center mb-8">
-              <div className="w-full max-w-sm mx-auto mb-4">
-                <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/KLIFE1111-logo-OrZz7hBKj2TTuXjj6DRAtgi1p9IYZE.png"
-                  alt="K Life 1111 Logo"
-                  width={400}
-                  height={200}
-                  className="w-full h-auto"
-                  priority
-                  style={{
-                    filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)) drop-shadow(0 0 8px rgba(125, 211, 192, 0.5)) drop-shadow(0 0 15px rgba(179, 224, 220, 0.3)) brightness(1.05)'
-                  }}
-                />
-              </div>
-              <p className="text-3xl md:text-4xl text-white tracking-wide drop-shadow-lg" style={{ fontFamily: "'Californian Signature', cursive" }}>
-                — A special space for you —
+      <section className="relative z-10 pt-20 pb-12 px-4 backdrop-blur-sm" style={{ background: 'linear-gradient(45deg, rgba(125, 211, 192, 0.7) 0%, rgba(179, 224, 220, 0.6) 50%, rgba(217, 240, 238, 0.5) 100%)' }}>
+        <div className="container mx-auto max-w-6xl">
+          {/* Logo centrado arriba */}
+          <div className="text-center mb-6">
+            <div className="w-full max-w-md mx-auto">
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/KLIFE1111-logo-OrZz7hBKj2TTuXjj6DRAtgi1p9IYZE.png"
+                alt="K Life 1111 Logo"
+                width={400}
+                height={200}
+                className="w-full h-auto"
+                priority
+                style={{
+                  filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)) drop-shadow(0 0 8px rgba(125, 211, 192, 0.5)) drop-shadow(0 0 15px rgba(179, 224, 220, 0.3)) brightness(1.05)'
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Tagline con estilo mejorado */}
+          <div className="text-center mb-8">
+            <div className="inline-block bg-white/20 backdrop-blur-sm px-8 py-3 rounded-full border border-white/40">
+              <p className="text-2xl md:text-3xl text-white tracking-wide" style={{ fontFamily: "'Californian Signature', cursive" }}>
+                A special space for you
               </p>
             </div>
+          </div>
 
-            {/* Layout en dos columnas: Foto + Info - Más compacto */}
-            <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10">
-              {/* Foto de Kimberly */}
-              <div className="w-56 md:w-72 overflow-hidden rounded-3xl shadow-2xl border-4 border-white/50 flex-shrink-0">
+          {/* Card principal con efecto más moderno */}
+          <div className="bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl border border-white/50">
+            <div className="flex flex-col md:flex-row">
+              {/* Foto de Kimberly - Lado izquierdo */}
+              <div className="md:w-2/5 relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-teal-400/20 to-transparent"></div>
                 <Image
                   src="/images/kimberly-photo.jpg"
                   alt="Kimberly Alcantara"
-                  width={400}
-                  height={500}
-                  className="w-full h-auto object-cover"
+                  width={500}
+                  height={600}
+                  className="w-full h-full object-cover"
+                  style={{ minHeight: '500px' }}
                 />
               </div>
 
-              {/* Información profesional */}
-              <div className="text-center md:text-left space-y-3 flex-1">
-                <h1 className="text-3xl md:text-4xl text-white font-bold drop-shadow-lg">{t.hero.owner}</h1>
-                <p className="text-xl md:text-2xl text-white/90 italic drop-shadow-md">{t.hero.profession}</p>
-
-                {/* Contact Info */}
-                <div className="flex flex-col gap-2 text-white pt-3">
-                  <div className="flex items-center justify-center md:justify-start gap-2">
-                    <svg className="w-5 h-5 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                    </svg>
-                    <span className="text-lg md:text-xl font-semibold drop-shadow-md">{t.hero.phone}</span>
+              {/* Información - Lado derecho */}
+              <div className="md:w-3/5 p-8 md:p-12 flex flex-col justify-center">
+                <div className="space-y-6">
+                  <div>
+                    <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-teal-600 to-teal-400 bg-clip-text text-transparent mb-3">
+                      {t.hero.owner}
+                    </h1>
+                    <p className="text-2xl md:text-3xl text-gray-700 italic font-light">
+                      {t.hero.profession}
+                    </p>
                   </div>
-                  <div className="flex items-center justify-center md:justify-start gap-2">
-                    <svg className="w-5 h-5 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path
-                        fillRule="evenodd"
-                        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <span className="text-lg md:text-xl font-semibold drop-shadow-md">{t.hero.location}</span>
-                  </div>
-                </div>
 
-                {/* CTA Button */}
-                <div className="pt-4">
-                  <a
-                    href="/booking"
-                    className="inline-block px-8 py-3 bg-[#B3E0DC] text-gray-900 rounded-full hover:bg-[#9BCCC8] transition-all font-semibold text-lg shadow-lg hover:shadow-xl hover:scale-105"
-                  >
-                    {t.hero.cta}
-                  </a>
+                  {/* Línea decorativa */}
+                  <div className="w-20 h-1 bg-gradient-to-r from-teal-400 to-teal-600 rounded-full"></div>
+
+                  {/* Contact Info con iconos modernos */}
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4 group">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                        </svg>
+                      </div>
+                      <span className="text-xl md:text-2xl font-semibold text-gray-800">{t.hero.phone}</span>
+                    </div>
+
+                    <div className="flex items-center gap-4 group">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <span className="text-xl md:text-2xl font-semibold text-gray-800">{t.hero.location}</span>
+                    </div>
+                  </div>
+
+                  {/* CTA Button mejorado */}
+                  <div className="pt-6">
+                    <a
+                      href="/booking"
+                      className="inline-block px-10 py-4 bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-full hover:from-teal-600 hover:to-teal-700 transition-all font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transform"
+                    >
+                      {t.hero.cta} →
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
