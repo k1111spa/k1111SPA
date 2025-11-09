@@ -61,20 +61,25 @@ export default function KLifeSpaPage() {
     formData.append("autoresponse", "true")
 
     try {
+      console.log("Sending form data to Web3Forms...")
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: formData
       })
 
+      console.log("Response status:", response.status)
       const data = await response.json()
+      console.log("Response data:", data)
 
       if (data.success) {
         setFormResult(language === "es" ? "¡Mensaje enviado exitosamente! Hemos enviado un correo de confirmación a tu email. Te contactaremos pronto." : "Message sent successfully! We've sent a confirmation email to your inbox. We'll contact you soon.")
         event.currentTarget.reset()
       } else {
+        console.error("Web3Forms error:", data.message)
         setFormResult(language === "es" ? `Error: ${data.message || "Por favor intenta de nuevo."}` : `Error: ${data.message || "Please try again."}`)
       }
     } catch (error) {
+      console.error("Fetch error:", error)
       setFormResult(language === "es" ? "Error al enviar el mensaje. Por favor intenta de nuevo." : "Error sending message. Please try again.")
     }
 
