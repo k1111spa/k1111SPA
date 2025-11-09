@@ -26,6 +26,7 @@ export default function KLifeSpaPage() {
   const [showFacialServices, setShowFacialServices] = useState(false)
   const [showBodyServices, setShowBodyServices] = useState(false)
   const [formResult, setFormResult] = useState("")
+  const [debugInfo, setDebugInfo] = useState("")
   const [services, setServices] = useState<Service[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -53,6 +54,7 @@ export default function KLifeSpaPage() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setFormResult("Enviando...")
+    setDebugInfo("")
 
     const formData = new FormData(event.currentTarget)
     formData.append("access_key", "df27a237-4c41-4f23-bd2f-1fcb9879891f")
@@ -62,29 +64,40 @@ export default function KLifeSpaPage() {
 
     try {
       console.log("Sending form data to Web3Forms...")
+      setDebugInfo("Conectando con Web3Forms...")
+
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: formData
       })
 
       console.log("Response status:", response.status)
+      setDebugInfo(`Status: ${response.status}`)
+
       const data = await response.json()
       console.log("Response data:", data)
+      setDebugInfo(`Status: ${response.status}, Success: ${data.success}, Message: ${data.message || 'N/A'}`)
 
       if (data.success) {
         setFormResult(language === "es" ? "¡Mensaje enviado exitosamente! Hemos enviado un correo de confirmación a tu email. Te contactaremos pronto." : "Message sent successfully! We've sent a confirmation email to your inbox. We'll contact you soon.")
         event.currentTarget.reset()
+        setDebugInfo("")
       } else {
         console.error("Web3Forms error:", data.message)
         setFormResult(language === "es" ? `Error: ${data.message || "Por favor intenta de nuevo."}` : `Error: ${data.message || "Please try again."}`)
       }
     } catch (error) {
       console.error("Fetch error:", error)
+      const errorMsg = error instanceof Error ? error.message : String(error)
+      setDebugInfo(`Fetch Error: ${errorMsg}`)
       setFormResult(language === "es" ? "Error al enviar el mensaje. Por favor intenta de nuevo." : "Error sending message. Please try again.")
     }
 
-    // Clear message after 8 seconds
-    setTimeout(() => setFormResult(""), 8000)
+    // Clear messages after 10 seconds
+    setTimeout(() => {
+      setFormResult("")
+      setDebugInfo("")
+    }, 10000)
   }
 
   const content = {
@@ -881,6 +894,12 @@ Este es un mensaje automático de confirmación. Por favor no respondas a este e
             >
               {t.contact.form.submit}
             </button>
+
+            {debugInfo && (
+              <div className="text-center p-3 rounded-lg bg-yellow-100 text-yellow-800 text-sm font-mono">
+                DEBUG: {debugInfo}
+              </div>
+            )}
 
             {formResult && (
               <div className={`text-center p-4 rounded-lg ${formResult.includes("exitosamente") || formResult.includes("successfully") ? "bg-green-100 text-green-800" : formResult.includes("Error") ? "bg-red-100 text-red-800" : "bg-blue-100 text-blue-800"}`}>
