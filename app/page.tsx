@@ -495,7 +495,7 @@ export default function KLifeSpaPage() {
           {/* Diseño centrado y cohesivo */}
           <div className="text-center">
             {/* Logo centrado con efecto mejorado */}
-            <div className="mb-8">
+            <div className="mb-4">
               <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/KLIFE1111-logo-OrZz7hBKj2TTuXjj6DRAtgi1p9IYZE.png"
                 alt="K Life 1111 Logo"
@@ -507,6 +507,15 @@ export default function KLifeSpaPage() {
                   filter: 'drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3)) drop-shadow(0 0 25px rgba(125, 211, 192, 0.7)) drop-shadow(0 0 50px rgba(179, 224, 220, 0.5)) brightness(1.15)'
                 }}
               />
+            </div>
+
+            {/* Tagline debajo del logo */}
+            <div className="mb-8">
+              <div className="inline-block bg-gradient-to-r from-teal-500/95 to-teal-400/95 backdrop-blur-lg px-8 py-3 rounded-3xl shadow-2xl">
+                <p className="text-2xl md:text-3xl text-white font-medium italic" style={{ fontFamily: "'Californian Signature', cursive" }}>
+                  A special space for you
+                </p>
+              </div>
             </div>
 
             {/* Card principal unificada */}
@@ -528,15 +537,6 @@ export default function KLifeSpaPage() {
                   />
                   {/* Gradient overlay suave */}
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/60"></div>
-
-                  {/* Tagline flotante sobre la foto */}
-                  <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-11/12 max-w-lg">
-                    <div className="bg-gradient-to-r from-teal-500/95 to-teal-400/95 backdrop-blur-lg px-8 py-4 rounded-3xl shadow-2xl">
-                      <p className="text-2xl md:text-3xl text-white font-medium italic" style={{ fontFamily: "'Californian Signature', cursive" }}>
-                        A special space for you
-                      </p>
-                    </div>
-                  </div>
                 </div>
 
                 {/* Información debajo de la foto */}
