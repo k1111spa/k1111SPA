@@ -463,17 +463,17 @@ export default function ServicesPage() {
         </div>
       )}
 
-      {/* Services List */}
-      <div className="bg-white rounded-xl shadow-md overflow-hidden">
+      {/* Tratamientos Faciales */}
+      <div className="bg-white rounded-xl shadow-md overflow-hidden mb-8">
+        <div className="bg-gradient-to-r from-teal-500 to-teal-600 px-6 py-4">
+          <h2 className="text-xl font-bold text-white">💆‍♀️ Tratamientos Faciales</h2>
+        </div>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Servicio
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Categoría
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Duración
@@ -490,7 +490,7 @@ export default function ServicesPage() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {services.map((service) => (
+              {services.filter(s => s.category === 'facial').map((service) => (
                 <tr key={service.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4">
                     <div className="text-sm font-medium text-gray-900">{service.name}</div>
@@ -499,7 +499,80 @@ export default function ServicesPage() {
                     )}
                   </td>
                   <td className="px-6 py-4">
-                    <span className="text-sm text-gray-900 capitalize">{service.category}</span>
+                    <span className="text-sm text-gray-900">{service.duration} min</span>
+                  </td>
+                  <td className="px-6 py-4">
+                    <span className="text-sm text-gray-900">${service.price}</span>
+                  </td>
+                  <td className="px-6 py-4">
+                    <button
+                      onClick={() => toggleServiceStatus(service.id, service.active)}
+                      className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                        service.active
+                          ? "bg-green-100 text-green-800"
+                          : "bg-gray-100 text-gray-800"
+                      }`}
+                    >
+                      {service.active ? "Activo" : "Inactivo"}
+                    </button>
+                  </td>
+                  <td className="px-6 py-4 text-sm">
+                    <div className="flex space-x-3">
+                      <button
+                        onClick={() => startEditing(service)}
+                        className="text-teal-600 hover:text-teal-900 font-medium"
+                      >
+                        Editar
+                      </button>
+                      <button
+                        onClick={() => deleteService(service.id)}
+                        className="text-red-600 hover:text-red-900 font-medium"
+                      >
+                        Eliminar
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Tratamientos Corporales */}
+      <div className="bg-white rounded-xl shadow-md overflow-hidden">
+        <div className="bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-4">
+          <h2 className="text-xl font-bold text-white">💪 Tratamientos Corporales</h2>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Servicio
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Duración
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Precio
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Estado
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Acciones
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {services.filter(s => s.category === 'body').map((service) => (
+                <tr key={service.id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4">
+                    <div className="text-sm font-medium text-gray-900">{service.name}</div>
+                    {service.description && (
+                      <div className="text-sm text-gray-500">{service.description}</div>
+                    )}
                   </td>
                   <td className="px-6 py-4">
                     <span className="text-sm text-gray-900">{service.duration} min</span>
