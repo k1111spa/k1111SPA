@@ -56,7 +56,10 @@ export default function KLifeSpaPage() {
     setFormResult("Enviando...")
     setDebugInfo("")
 
-    const formData = new FormData(event.currentTarget)
+    // Guardar referencia al formulario antes del async
+    const form = event.currentTarget
+
+    const formData = new FormData(form)
     formData.append("access_key", "df27a237-4c41-4f23-bd2f-1fcb9879891f")
 
     // Email de confirmación automático al cliente
@@ -80,7 +83,7 @@ export default function KLifeSpaPage() {
 
       if (data.success) {
         setFormResult(language === "es" ? "¡Mensaje enviado exitosamente! Hemos enviado un correo de confirmación a tu email. Te contactaremos pronto." : "Message sent successfully! We've sent a confirmation email to your inbox. We'll contact you soon.")
-        event.currentTarget.reset()
+        form.reset()
         setDebugInfo("")
       } else {
         console.error("Web3Forms error:", data.message)
