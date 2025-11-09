@@ -851,7 +851,7 @@ Este es un mensaje automático de confirmación. Por favor no respondas a este e
             {/* Brand Section */}
             <div className="space-y-4">
               <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-[#B3E0DC] to-[#7DD3C0] bg-clip-text text-transparent">
-                K1111 Spa
+                K Life 1111 Esthetician & Spa
               </h3>
               <div className="flex justify-center md:justify-start gap-4 pt-2">
                 <a
