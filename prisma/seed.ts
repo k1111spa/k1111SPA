@@ -159,15 +159,19 @@ async function main() {
   ]
 
   for (const service of facialServices) {
-    const existing = await prisma.service.findFirst({
-      where: { name: service.name },
+    await prisma.service.upsert({
+      where: {
+        name_category: {
+          name: service.name,
+          category: service.category
+        }
+      },
+      update: service,
+      create: service,
     })
-    if (!existing) {
-      await prisma.service.create({ data: service })
-    }
   }
 
-  console.log("✅ Facial services created")
+  console.log("✅ Facial services created/updated")
 
   // Create body services
   const bodyServices = [
@@ -234,15 +238,19 @@ async function main() {
   ]
 
   for (const service of bodyServices) {
-    const existing = await prisma.service.findFirst({
-      where: { name: service.name },
+    await prisma.service.upsert({
+      where: {
+        name_category: {
+          name: service.name,
+          category: service.category
+        }
+      },
+      update: service,
+      create: service,
     })
-    if (!existing) {
-      await prisma.service.create({ data: service })
-    }
   }
 
-  console.log("✅ Body services created")
+  console.log("✅ Body services created/updated")
 
   // Create default business hours (Monday to Saturday)
   const businessHours = [

@@ -87,6 +87,8 @@ model Service {
   updatedAt       DateTime @updatedAt
 
   appointments Appointment[]
+
+  @@unique([name, category])
 }
 
 // Appointment bookings
