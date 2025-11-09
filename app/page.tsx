@@ -428,7 +428,7 @@ export default function KLifeSpaPage() {
       </div>
 
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 bg-gradient-to-r from-[#B3E0DC]/80 via-[#7DD3C0]/75 to-[#B3E0DC]/80 backdrop-blur-md shadow-lg z-50">
+      <header className="fixed top-0 left-0 right-0 bg-gradient-to-r from-[#B3E0DC]/60 via-[#7DD3C0]/55 to-[#B3E0DC]/60 backdrop-blur-lg shadow-lg z-50">
         <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Image
