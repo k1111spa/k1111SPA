@@ -274,6 +274,9 @@ export default function BookingPage() {
             width={200}
             height={100}
             className="mx-auto mb-4"
+            style={{
+              filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)) drop-shadow(0 0 8px rgba(125, 211, 192, 0.5)) drop-shadow(0 0 15px rgba(179, 224, 220, 0.3)) brightness(1.05)'
+            }}
           />
           <h1 className="text-4xl font-bold text-gray-900 mb-2">{t.title}</h1>
           <p className="text-lg text-gray-600">{t.subtitle}</p>

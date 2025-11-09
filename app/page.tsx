@@ -477,6 +477,9 @@ export default function KLifeSpaPage() {
               height={200}
               className="w-full h-auto"
               priority
+              style={{
+                filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)) drop-shadow(0 0 8px rgba(125, 211, 192, 0.5)) drop-shadow(0 0 15px rgba(179, 224, 220, 0.3)) brightness(1.05)'
+              }}
             />
           </div>
 
