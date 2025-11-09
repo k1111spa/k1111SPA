@@ -211,6 +211,9 @@ export default function KLifeSpaPage() {
           },
         ],
       },
+      servicesSection: {
+        title: "Nuestros Tratamientos",
+      },
       testimonials: {
         title: "Lo Que Dicen Nuestras Clientas",
         subtitle: "Experiencias Reales",
@@ -365,6 +368,9 @@ export default function KLifeSpaPage() {
             ]
           },
         ],
+      },
+      servicesSection: {
+        title: "Our Treatments",
       },
       testimonials: {
         title: "What Our Clients Say",
@@ -597,7 +603,7 @@ export default function KLifeSpaPage() {
       {/* Services Section */}
       <section id="services" className="relative z-10 py-20 px-4 backdrop-blur-sm" style={{ background: 'linear-gradient(135deg, rgba(217, 240, 238, 0.6) 0%, rgba(179, 224, 220, 0.5) 50%, rgba(125, 211, 192, 0.6) 100%)' }}>
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-4xl font-bold text-center text-white mb-12 drop-shadow-lg">Nuestros Tratamientos</h2>
+          <h2 className="text-4xl font-bold text-center text-white mb-12 drop-shadow-lg">{t.servicesSection.title}</h2>
 
           {/* Service Toggle Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
