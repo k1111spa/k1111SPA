@@ -39,9 +39,12 @@ export default function NotFound() {
           </p>
 
           {/* Promotional Message with animation */}
-          <div className="bg-gradient-to-r from-teal-500 to-teal-400 text-white rounded-2xl p-8 mb-8 transform hover:scale-105 transition-transform shadow-xl animate-slide-in">
-            <h3 className="text-2xl font-bold mb-4">💆‍♀️ ¡Aprovecha tu tiempo aquí!</h3>
-            <p className="text-lg mb-6">
+          <div className="bg-gradient-to-r from-teal-500 to-teal-400 text-white rounded-2xl p-8 mb-8 transform hover:scale-105 transition-transform shadow-xl animate-slide-in relative overflow-hidden">
+            {/* Animated shine effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shine"></div>
+
+            <h3 className="text-2xl font-bold mb-4 animate-bounce-gentle">💆‍♀️ ¡Aprovecha tu tiempo aquí!</h3>
+            <p className="text-lg mb-6 animate-fade-in-delayed">
               Descubre nuestros tratamientos de belleza y bienestar
             </p>
 
@@ -59,16 +62,16 @@ export default function NotFound() {
               </span>
             </a>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-              <div className="flex items-start gap-3">
-                <span className="text-2xl">✨</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left relative">
+              <div className="flex items-start gap-3 animate-slide-in-left hover:scale-110 transition-transform">
+                <span className="text-2xl animate-spin-slow">✨</span>
                 <div>
                   <p className="font-bold">Tratamientos Faciales</p>
                   <p className="text-sm opacity-90">Dermaplaning, Hidrafacial, Microdermoabrasión</p>
                 </div>
               </div>
-              <div className="flex items-start gap-3">
-                <span className="text-2xl">💪</span>
+              <div className="flex items-start gap-3 animate-slide-in-right hover:scale-110 transition-transform">
+                <span className="text-2xl animate-spin-slow animation-delay-1000">💪</span>
                 <div>
                   <p className="font-bold">Tratamientos Corporales</p>
                   <p className="text-sm opacity-90">Venus Legacy, Reafirmación de piel</p>
@@ -90,9 +93,9 @@ export default function NotFound() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-teal-600 to-teal-500 text-white rounded-full hover:from-teal-700 hover:to-teal-600 transition-all font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transform"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-teal-600 to-teal-500 text-white rounded-full hover:from-teal-700 hover:to-teal-600 transition-all font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-110 transform animate-float"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 animate-bounce-gentle" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
               </svg>
               Volver al Inicio
@@ -100,9 +103,9 @@ export default function NotFound() {
 
             <Link
               href="/booking"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-white text-teal-600 border-2 border-teal-600 rounded-full hover:bg-teal-50 transition-all font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transform"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-white text-teal-600 border-2 border-teal-600 rounded-full hover:bg-teal-50 transition-all font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-110 transform animate-float animation-delay-500"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 animate-bounce-gentle animation-delay-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
               Reservar Cita Online
@@ -220,6 +223,112 @@ export default function NotFound() {
 
         .animate-fade-in {
           animation: fade-in-up 1s ease-out;
+        }
+
+        @keyframes shine {
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(100%);
+          }
+        }
+
+        @keyframes bounce-gentle {
+          0%, 100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-5px);
+          }
+        }
+
+        @keyframes fade-in-delayed {
+          0% {
+            opacity: 0;
+          }
+          50% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+
+        @keyframes slide-in-left {
+          from {
+            opacity: 0;
+            transform: translateX(-50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slide-in-right {
+          from {
+            opacity: 0;
+            transform: translateX(50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes spin-slow {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+
+        .animate-shine {
+          animation: shine 3s infinite;
+        }
+
+        .animate-bounce-gentle {
+          animation: bounce-gentle 2s infinite ease-in-out;
+        }
+
+        .animate-fade-in-delayed {
+          animation: fade-in-delayed 2s ease-out;
+        }
+
+        .animate-slide-in-left {
+          animation: slide-in-left 0.8s ease-out;
+        }
+
+        .animate-slide-in-right {
+          animation: slide-in-right 0.8s ease-out;
+        }
+
+        .animate-spin-slow {
+          animation: spin-slow 4s linear infinite;
+        }
+
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+
+        .animation-delay-500 {
+          animation-delay: 0.5s;
+        }
+
+        .animation-delay-1000 {
+          animation-delay: 1s;
         }
       `}</style>
     </div>
