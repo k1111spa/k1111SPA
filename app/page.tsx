@@ -466,108 +466,110 @@ export default function KLifeSpaPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative z-10 pt-20 pb-16 px-4" style={{ background: 'linear-gradient(135deg, rgba(125, 211, 192, 0.8) 0%, rgba(179, 224, 220, 0.7) 50%, rgba(217, 240, 238, 0.6) 100%)' }}>
-        <div className="container mx-auto max-w-7xl">
-          {/* Layout horizontal integrado */}
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+      <section className="relative z-10 pt-20 pb-24 px-4" style={{ background: 'linear-gradient(135deg, rgba(125, 211, 192, 0.85) 0%, rgba(179, 224, 220, 0.75) 50%, rgba(217, 240, 238, 0.65) 100%)' }}>
+        <div className="container mx-auto max-w-5xl">
+          {/* Diseño centrado y cohesivo */}
+          <div className="text-center">
+            {/* Logo centrado con efecto mejorado */}
+            <div className="mb-8">
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/KLIFE1111-logo-OrZz7hBKj2TTuXjj6DRAtgi1p9IYZE.png"
+                alt="K Life 1111 Logo"
+                width={450}
+                height={225}
+                className="mx-auto w-full max-w-md h-auto"
+                priority
+                style={{
+                  filter: 'drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3)) drop-shadow(0 0 25px rgba(125, 211, 192, 0.7)) drop-shadow(0 0 50px rgba(179, 224, 220, 0.5)) brightness(1.15)'
+                }}
+              />
+            </div>
 
-            {/* Lado izquierdo: Logo + Foto de Kimberly */}
-            <div className="lg:w-1/2 flex flex-col items-center">
-              {/* Logo arriba de la foto */}
-              <div className="w-full max-w-sm mb-6">
-                <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/KLIFE1111-logo-OrZz7hBKj2TTuXjj6DRAtgi1p9IYZE.png"
-                  alt="K Life 1111 Logo"
-                  width={400}
-                  height={200}
-                  className="w-full h-auto"
-                  priority
-                  style={{
-                    filter: 'drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25)) drop-shadow(0 0 20px rgba(125, 211, 192, 0.6)) drop-shadow(0 0 40px rgba(179, 224, 220, 0.4)) brightness(1.1)'
-                  }}
-                />
-              </div>
+            {/* Card principal unificada */}
+            <div className="relative max-w-3xl mx-auto">
+              {/* Efecto de resplandor de fondo */}
+              <div className="absolute -inset-6 bg-gradient-to-br from-white/40 via-teal-200/30 to-white/40 rounded-[3rem] blur-3xl"></div>
 
-              {/* Foto de Kimberly con diseño moderno */}
-              <div className="relative w-full max-w-md">
-                {/* Decoración de fondo */}
-                <div className="absolute -inset-4 bg-gradient-to-br from-teal-400/30 via-teal-300/20 to-transparent rounded-3xl blur-2xl"></div>
-
-                {/* Foto */}
-                <div className="relative overflow-hidden rounded-3xl shadow-2xl border-4 border-white/80">
+              {/* Card contenedora */}
+              <div className="relative bg-white/95 backdrop-blur-xl rounded-[2.5rem] overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.2)] border-4 border-white/60">
+                {/* Foto de Kimberly */}
+                <div className="relative">
                   <Image
                     src="/images/kimberly-photo.jpg"
                     alt="Kimberly Alcantara"
-                    width={500}
-                    height={650}
+                    width={800}
+                    height={600}
                     className="w-full h-auto object-cover"
+                    style={{ maxHeight: '500px', objectPosition: 'center 20%' }}
                   />
-                  {/* Overlay gradient sutil */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-teal-900/20 via-transparent to-transparent pointer-events-none"></div>
+                  {/* Gradient overlay suave */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/60"></div>
+
+                  {/* Tagline flotante sobre la foto */}
+                  <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-11/12 max-w-lg">
+                    <div className="bg-gradient-to-r from-teal-500/95 to-teal-400/95 backdrop-blur-lg px-8 py-4 rounded-3xl shadow-2xl">
+                      <p className="text-2xl md:text-3xl text-white font-medium italic" style={{ fontFamily: "'Californian Signature', cursive" }}>
+                        A special space for you
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Tagline flotante sobre la foto */}
-                <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-11/12">
-                  <div className="bg-white/95 backdrop-blur-md px-6 py-3 rounded-2xl shadow-xl border border-teal-200/50 text-center">
-                    <p className="text-xl md:text-2xl text-teal-700 font-medium italic" style={{ fontFamily: "'Californian Signature', cursive" }}>
-                      A special space for you
+                {/* Información debajo de la foto */}
+                <div className="px-8 py-10 bg-gradient-to-b from-white/95 to-teal-50/80">
+                  {/* Nombre y profesión */}
+                  <div className="mb-8">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-teal-600 via-teal-500 to-teal-400 bg-clip-text text-transparent mb-3 leading-tight">
+                      {t.hero.owner}
+                    </h1>
+                    <p className="text-2xl md:text-3xl text-gray-600 italic font-light">
+                      {t.hero.profession}
                     </p>
                   </div>
-                </div>
-              </div>
-            </div>
 
-            {/* Lado derecho: Información */}
-            <div className="lg:w-1/2 mt-12 lg:mt-0 text-center lg:text-left space-y-8">
-              {/* Nombre y profesión */}
-              <div>
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 drop-shadow-2xl leading-tight">
-                  {t.hero.owner}
-                </h1>
-                <p className="text-2xl md:text-3xl lg:text-4xl text-white/95 italic font-light drop-shadow-lg">
-                  {t.hero.profession}
-                </p>
-              </div>
-
-              {/* Línea decorativa con puntos */}
-              <div className="flex items-center justify-center lg:justify-start gap-3">
-                <div className="w-3 h-3 rounded-full bg-white/80"></div>
-                <div className="w-24 h-0.5 bg-white/60"></div>
-                <div className="w-3 h-3 rounded-full bg-white/80"></div>
-              </div>
-
-              {/* Contact Info - diseño más limpio */}
-              <div className="space-y-5">
-                <div className="flex items-center justify-center lg:justify-start gap-4 bg-white/20 backdrop-blur-sm rounded-2xl px-6 py-4 hover:bg-white/30 transition-all group">
-                  <div className="w-14 h-14 rounded-2xl bg-white shadow-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <svg className="w-7 h-7 text-teal-600" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                    </svg>
+                  {/* Línea decorativa */}
+                  <div className="flex items-center justify-center gap-3 mb-8">
+                    <div className="w-2 h-2 rounded-full bg-teal-400"></div>
+                    <div className="w-20 h-0.5 bg-gradient-to-r from-teal-400 to-teal-300"></div>
+                    <div className="w-3 h-3 rounded-full bg-teal-500"></div>
+                    <div className="w-20 h-0.5 bg-gradient-to-r from-teal-300 to-teal-400"></div>
+                    <div className="w-2 h-2 rounded-full bg-teal-400"></div>
                   </div>
-                  <span className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg">{t.hero.phone}</span>
-                </div>
 
-                <div className="flex items-center justify-center lg:justify-start gap-4 bg-white/20 backdrop-blur-sm rounded-2xl px-6 py-4 hover:bg-white/30 transition-all group">
-                  <div className="w-14 h-14 rounded-2xl bg-white shadow-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <svg className="w-7 h-7 text-teal-600" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                    </svg>
+                  {/* Información de contacto */}
+                  <div className="space-y-4 mb-10">
+                    <div className="flex items-center justify-center gap-4">
+                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-teal-400 shadow-lg flex items-center justify-center">
+                        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                        </svg>
+                      </div>
+                      <span className="text-2xl md:text-3xl font-bold text-gray-800">{t.hero.phone}</span>
+                    </div>
+
+                    <div className="flex items-center justify-center gap-4">
+                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-teal-400 shadow-lg flex items-center justify-center">
+                        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <span className="text-2xl md:text-3xl font-bold text-gray-800">{t.hero.location}</span>
+                    </div>
                   </div>
-                  <span className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg">{t.hero.location}</span>
-                </div>
-              </div>
 
-              {/* CTA Button destacado */}
-              <div className="pt-8">
-                <a
-                  href="/booking"
-                  className="inline-flex items-center gap-3 px-12 py-5 bg-white text-teal-600 rounded-full hover:bg-teal-50 transition-all font-bold text-xl shadow-2xl hover:shadow-[0_20px_60px_rgba(125,211,192,0.5)] hover:scale-110 transform"
-                >
-                  <span>{t.hero.cta}</span>
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </a>
+                  {/* CTA Button */}
+                  <div>
+                    <a
+                      href="/booking"
+                      className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-teal-600 to-teal-500 text-white rounded-full hover:from-teal-700 hover:to-teal-600 transition-all font-bold text-xl shadow-[0_10px_40px_rgba(125,211,192,0.4)] hover:shadow-[0_15px_50px_rgba(125,211,192,0.6)] hover:scale-105 transform"
+                    >
+                      <span>{t.hero.cta}</span>
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
