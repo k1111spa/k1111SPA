@@ -5,7 +5,11 @@ export async function GET() {
   try {
     const services = await prisma.service.findMany({
       where: { active: true },
-      orderBy: { category: "asc" },
+      orderBy: [
+        { category: "asc" },
+        { sortOrder: "asc" } as any,
+        { name: "asc" }
+      ],
     })
 
     return NextResponse.json(services)
