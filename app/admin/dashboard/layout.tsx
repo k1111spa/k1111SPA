@@ -15,6 +15,7 @@ export default function AdminLayout({
   const navigation = [
     { name: "Citas", href: "/admin/dashboard/appointments", icon: "📅" },
     { name: "Calendario", href: "/admin/dashboard/calendar", icon: "🗓️" },
+    { name: "Clientes", href: "/admin/dashboard/clients", icon: "👥" },
     { name: "Servicios", href: "/admin/dashboard/services", icon: "💆‍♀️" },
     { name: "Disponibilidad", href: "/admin/dashboard/availability", icon: "⏰" },
   ]
