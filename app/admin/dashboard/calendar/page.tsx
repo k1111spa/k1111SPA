@@ -8,7 +8,8 @@ import "react-big-calendar/lib/css/react-big-calendar.css"
 const localizer = dayjsLocalizer(dayjs)
 
 // Función para convertir hora militar a formato 12h AM/PM
-const formatTo12Hour = (time24: string): string => {
+const formatTo12Hour = (time24: string | undefined | null): string => {
+  if (!time24) return ""
   const [hours, minutes] = time24.split(":").map(Number)
   const period = hours >= 12 ? "PM" : "AM"
   const hours12 = hours % 12 || 12
@@ -61,15 +62,16 @@ export default function CalendarPage() {
         const appointments: Appointment[] = await response.json()
 
         const calendarEvents: CalendarEvent[] = appointments.map((apt) => {
-          const [startHour, startMinute] = apt.startTime.split(":").map(Number)
-          const [endHour, endMinute] = apt.endTime.split(":").map(Number)
+          const [startHour, startMinute] = (apt.startTime || "09:00").split(":").map(Number)
+          const [endHour, endMinute] = (apt.endTime || "10:00").split(":").map(Number)
 
-          const start = dayjs(apt.date).hour(startHour).minute(startMinute).toDate()
-          const end = dayjs(apt.date).hour(endHour).minute(endMinute).toDate()
+          const dateObj = new Date(apt.date)
+          const start = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate(), startHour, startMinute)
+          const end = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate(), endHour, endMinute)
 
           return {
             id: apt.id,
-            title: `${apt.service.name} - ${apt.user.name || apt.user.email}`,
+            title: `${apt.service?.name || "Servicio"} - ${apt.user?.name || apt.user?.email || "Cliente"}`,
             start,
             end,
             status: apt.status,
