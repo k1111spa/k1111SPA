@@ -531,9 +531,9 @@ export default function KLifeSpaPage() {
                     src="/images/kimberly-photo.jpg"
                     alt="Kimberly Alcantara"
                     width={800}
-                    height={600}
-                    className="w-full h-auto object-cover"
-                    style={{ maxHeight: '500px', objectPosition: 'center 20%' }}
+                    height={1000}
+                    className="w-full h-auto"
+                    style={{ objectFit: 'contain' }}
                   />
                   {/* Gradient overlay suave */}
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/60"></div>
