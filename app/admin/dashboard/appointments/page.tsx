@@ -23,8 +23,11 @@ type Appointment = {
 
 // Función para convertir hora militar a formato 12h AM/PM
 const formatTo12Hour = (time24: string | undefined | null): string => {
-  if (!time24) return ""
-  const [hours, minutes] = time24.split(":").map(Number)
+  if (!time24) return "N/A"
+  const parts = time24.split(":")
+  if (parts.length < 2) return time24
+  const hours = Number(parts[0]) || 0
+  const minutes = Number(parts[1]) || 0
   const period = hours >= 12 ? "PM" : "AM"
   const hours12 = hours % 12 || 12
   return `${hours12}:${minutes.toString().padStart(2, "0")} ${period}`
