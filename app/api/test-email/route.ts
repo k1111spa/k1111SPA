@@ -1,36 +1,39 @@
 import { NextResponse } from "next/server"
 
-// GET: Prueba rápida de email
+// GET: Prueba rápida de email usando JSON
 export async function GET() {
   try {
-    const emailData = new FormData()
-    emailData.append("access_key", "df27a237-4c41-4f23-bd2f-1fcb9879891f")
-    emailData.append("subject", "🧪 TEST - K Life Spa Email Funcionando")
-    emailData.append("from_name", "K Life Spa Test")
-    emailData.append("name", "Sistema de Prueba")
-    emailData.append("email", "test@k1111spa.life")
-    emailData.append(
-      "message",
-      `✅ PRUEBA DE EMAIL - K LIFE SPA
+    const emailPayload = {
+      access_key: "df27a237-4c41-4f23-bd2f-1fcb9879891f",
+      subject: "TEST - K Life Spa Email",
+      from_name: "K Life Spa Test",
+      name: "Sistema de Prueba",
+      email: "test@k1111spa.life",
+      message: `PRUEBA DE EMAIL - K LIFE SPA
 
 Este es un correo de PRUEBA para verificar que Web3Forms funciona.
 
 Fecha/Hora: ${new Date().toISOString()}
 
-Si recibes este correo en k1111marketing@gmail.com, el sistema de emails está funcionando correctamente.
-
-El problema podría ser:
-1. Los correos llegan a SPAM
-2. La cita se creó desde el admin (no envía email)
-3. Error en el formulario de booking del cliente`
-    )
+Si recibes este correo en k1111marketing@gmail.com, el sistema de emails esta funcionando correctamente.`
+    }
 
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
-      body: emailData,
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(emailPayload),
     })
 
-    const data = await response.json()
+    const responseText = await response.text()
+    let data
+    try {
+      data = JSON.parse(responseText)
+    } catch {
+      data = { raw: responseText.substring(0, 500) }
+    }
 
     return NextResponse.json({
       success: response.ok,
@@ -38,7 +41,7 @@ El problema podría ser:
       web3formsResponse: data,
       message: response.ok
         ? "Email enviado! Revisa k1111marketing@gmail.com (incluyendo SPAM)"
-        : "Error al enviar email",
+        : "Error al enviar email - posible problema con API key",
       timestamp: new Date().toISOString()
     })
   } catch (error) {

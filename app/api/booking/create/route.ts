@@ -121,61 +121,53 @@ export async function POST(request: Request) {
       const formattedDate = dayjs(date).format("MMMM D, YYYY")
 
       try {
-        const emailData = new FormData()
-        emailData.append("access_key", "df27a237-4c41-4f23-bd2f-1fcb9879891f")
-        emailData.append("subject", "🔔 Nueva Cita - K Life Spa / New Appointment Request")
-        emailData.append("from_name", "K Life Spa Booking System")
-        emailData.append("name", name)
-        emailData.append("email", email)
+        const emailPayload = {
+          access_key: "df27a237-4c41-4f23-bd2f-1fcb9879891f",
+          subject: "Nueva Cita - K Life Spa / New Appointment Request",
+          from_name: "K Life Spa Booking System",
+          name: name,
+          email: email,
+          message: `NUEVA SOLICITUD DE CITA / NEW APPOINTMENT REQUEST
 
-        emailData.append(
-          "message",
-          `🔔 NUEVA SOLICITUD DE CITA / NEW APPOINTMENT REQUEST
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-CLIENT INFORMATION / INFORMACIÓN DEL CLIENTE:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CLIENT INFORMATION / INFORMACION DEL CLIENTE:
 Name / Nombre: ${name}
 Email / Correo: ${email}
-Phone / Teléfono: ${phone}
+Phone / Telefono: ${phone}
 
 APPOINTMENT DETAILS / DETALLES DE LA CITA:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Service / Servicio: ${appointment.service.name}
 Date / Fecha: ${formattedDate}
 Time / Hora: ${startTime}
-Duration / Duración: ${appointment.service.duration} minutes/minutos
+Duration / Duracion: ${appointment.service.duration} minutes/minutos
 Price / Precio: $${appointment.service.price}
 
-${notes ? `Special Notes / Notas Especiales:\n${notes}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` : ''}
-STATUS / ESTADO: ⏳ Pending Confirmation / Pendiente de Confirmación
+${notes ? `Special Notes / Notas Especiales: ${notes}` : ''}
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-ACTION REQUIRED / ACCIÓN REQUERIDA:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STATUS / ESTADO: Pending Confirmation / Pendiente de Confirmacion
 
+ACTION REQUIRED / ACCION REQUERIDA:
 Please log in to your admin panel to confirm or reject this appointment:
-Por favor ingresa a tu panel de administración para confirmar o rechazar esta cita:
+Por favor ingresa a tu panel de administracion para confirmar o rechazar esta cita:
 
-👉 ${process.env.NEXTAUTH_URL || 'https://k1111spa.life'}/admin/dashboard/appointments
+${process.env.NEXTAUTH_URL || 'https://k1111spa.life'}/admin/dashboard/appointments
 
 IMPORTANT: The client is waiting for your confirmation!
-IMPORTANTE: ¡El cliente está esperando tu confirmación!
+IMPORTANTE: El cliente esta esperando tu confirmacion!
 
-You should contact the client at:
-Debes contactar al cliente en:
-📧 ${email}
-📱 ${phone}
+Contact the client at / Debes contactar al cliente en:
+Email: ${email}
+Phone: ${phone}
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-K Life 1111 Spa - Booking System
-Automated Notification / Notificación Automática`
-        )
+K Life 1111 Spa - Booking System`
+        }
 
         const response = await fetch("https://api.web3forms.com/submit", {
           method: "POST",
-          body: emailData,
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify(emailPayload),
         })
 
         const data = await response.json()
