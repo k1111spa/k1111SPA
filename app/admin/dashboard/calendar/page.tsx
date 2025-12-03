@@ -60,7 +60,10 @@ export default function CalendarPage() {
 
   const fetchAppointments = async () => {
     try {
-      const response = await fetch("/api/admin/appointments")
+      // Agregar timestamp para evitar cache
+      const response = await fetch(`/api/admin/appointments?t=${Date.now()}`, {
+        cache: "no-store"
+      })
       if (response.ok) {
         const appointments: Appointment[] = await response.json()
 

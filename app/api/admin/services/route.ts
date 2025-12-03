@@ -17,7 +17,12 @@ export async function GET() {
       ],
     })
 
-    return NextResponse.json(services)
+    return NextResponse.json(services, {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+        "Pragma": "no-cache"
+      }
+    })
   } catch (error) {
     console.error("Error fetching services:", error)
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 })

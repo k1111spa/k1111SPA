@@ -30,7 +30,12 @@ export async function GET() {
       },
     })
 
-    return NextResponse.json(appointments)
+    return NextResponse.json(appointments, {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+        "Pragma": "no-cache"
+      }
+    })
   } catch (error) {
     console.error("Error fetching appointments:", error)
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 })

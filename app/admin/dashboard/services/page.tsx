@@ -50,7 +50,10 @@ export default function ServicesPage() {
 
   const fetchServices = async () => {
     try {
-      const response = await fetch("/api/admin/services")
+      // Agregar timestamp para evitar cache
+      const response = await fetch(`/api/admin/services?t=${Date.now()}`, {
+        cache: "no-store"
+      })
       if (response.ok) {
         const data = await response.json()
         setServices(data)
