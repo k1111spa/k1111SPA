@@ -48,6 +48,8 @@ export default function CalendarPage() {
   const [loading, setLoading] = useState(true)
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null)
   const [lastUpdated, setLastUpdated] = useState<Date>(new Date())
+  const [error, setError] = useState<string | null>(null)
+  const [totalAppointments, setTotalAppointments] = useState(0)
 
   useEffect(() => {
     fetchAppointments()
@@ -60,20 +62,23 @@ export default function CalendarPage() {
 
   const fetchAppointments = async () => {
     try {
+      setError(null)
       // Agregar timestamp para evitar cache
       const response = await fetch(`/api/admin/appointments?t=${Date.now()}`, {
         cache: "no-store"
       })
       if (response.ok) {
         const appointments: Appointment[] = await response.json()
+        setTotalAppointments(appointments.length)
+        console.log("Appointments fetched:", appointments.length, appointments)
 
         const calendarEvents: CalendarEvent[] = appointments.map((apt) => {
           const [startHour, startMinute] = (apt.startTime || "09:00").split(":").map(Number)
           const [endHour, endMinute] = (apt.endTime || "10:00").split(":").map(Number)
 
           const dateObj = new Date(apt.date)
-          const start = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate(), startHour, startMinute)
-          const end = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate(), endHour, endMinute)
+          const start = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate(), startHour || 0, startMinute || 0)
+          const end = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate(), endHour || 0, endMinute || 0)
 
           return {
             id: apt.id,
@@ -85,11 +90,16 @@ export default function CalendarPage() {
           }
         })
 
+        console.log("Calendar events created:", calendarEvents.length)
         setEvents(calendarEvents)
         setLastUpdated(new Date())
+      } else {
+        const errorData = await response.text()
+        setError(`Error ${response.status}: ${errorData}`)
       }
-    } catch (error) {
-      console.error("Error fetching appointments:", error)
+    } catch (err) {
+      console.error("Error fetching appointments:", err)
+      setError(err instanceof Error ? err.message : "Error desconocido")
     } finally {
       setLoading(false)
     }
@@ -141,7 +151,12 @@ export default function CalendarPage() {
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Calendario de Citas</h1>
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">Calendario de Citas</h1>
+          <p className="text-sm text-gray-500 mt-1">
+            Total de citas: {totalAppointments} | Eventos en calendario: {events.length}
+          </p>
+        </div>
         <div className="flex items-center gap-4">
           <span className="text-sm text-gray-500">
             Última actualización: {lastUpdated.toLocaleTimeString()}
@@ -155,6 +170,13 @@ export default function CalendarPage() {
           </button>
         </div>
       </div>
+
+      {/* Error message */}
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+          <strong>Error:</strong> {error}
+        </div>
+      )}
 
       {/* Legend */}
       <div className="bg-white rounded-xl shadow-md p-4 mb-6">
