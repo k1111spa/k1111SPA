@@ -640,7 +640,10 @@ export default function KLifeSpaPage() {
                 <div className="grid md:grid-cols-2 gap-8">
                   {services.filter(s => s.category === 'facial').map((service) => {
                     const displayName = language === 'en' && service.nameEn ? service.nameEn : service.name
-                    const displayDescription = language === 'en' && service.fullDescriptionEn ? service.fullDescriptionEn : service.fullDescription
+                    // Usar fullDescription si existe, si no usar description
+                    const fullDesc = language === 'en' ? service.fullDescriptionEn : service.fullDescription
+                    const shortDesc = language === 'en' ? service.descriptionEn : service.description
+                    const displayDescription = fullDesc || shortDesc
                     const imageSrc = service.imageUrl || 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&h=600&fit=crop'
 
                     // Parse benefits from JSON
@@ -701,7 +704,10 @@ export default function KLifeSpaPage() {
                 <div className="grid md:grid-cols-1 gap-8">
                   {services.filter(s => s.category === 'body').map((service) => {
                     const displayName = language === 'en' && service.nameEn ? service.nameEn : service.name
-                    const displayDescription = language === 'en' && service.fullDescriptionEn ? service.fullDescriptionEn : service.fullDescription
+                    // Usar fullDescription si existe, si no usar description
+                    const fullDesc = language === 'en' ? service.fullDescriptionEn : service.fullDescription
+                    const shortDesc = language === 'en' ? service.descriptionEn : service.description
+                    const displayDescription = fullDesc || shortDesc
                     const imageSrc = service.imageUrl || 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&h=600&fit=crop'
 
                     // Parse benefits from JSON
