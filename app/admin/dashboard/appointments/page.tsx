@@ -21,10 +21,35 @@ type Appointment = {
   }
 }
 
+// Función para convertir hora militar a formato 12h AM/PM
+const formatTo12Hour = (time24: string): string => {
+  const [hours, minutes] = time24.split(":").map(Number)
+  const period = hours >= 12 ? "PM" : "AM"
+  const hours12 = hours % 12 || 12
+  return `${hours12}:${minutes.toString().padStart(2, "0")} ${period}`
+}
+
+// Generar opciones de hora en intervalos de 30 minutos
+const generateTimeOptions = (): string[] => {
+  const times: string[] = []
+  for (let hour = 8; hour <= 20; hour++) {
+    for (let minute = 0; minute < 60; minute += 30) {
+      const time = `${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`
+      times.push(time)
+    }
+  }
+  return times
+}
+
 export default function AppointmentsPage() {
   const [appointments, setAppointments] = useState<Appointment[]>([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<string>("all")
+  const [editingAppointment, setEditingAppointment] = useState<Appointment | null>(null)
+  const [newStartTime, setNewStartTime] = useState<string>("")
+  const [saving, setSaving] = useState(false)
+
+  const timeOptions = generateTimeOptions()
 
   useEffect(() => {
     fetchAppointments()
@@ -58,6 +83,46 @@ export default function AppointmentsPage() {
     } catch (error) {
       console.error("Error updating appointment:", error)
     }
+  }
+
+  const updateAppointmentTime = async () => {
+    if (!editingAppointment || !newStartTime) return
+
+    setSaving(true)
+    try {
+      // Calcular nueva hora de fin basada en la duración del servicio
+      const newEndTime = dayjs(`2000-01-01 ${newStartTime}`)
+        .add(editingAppointment.service.duration, "minute")
+        .format("HH:mm")
+
+      const response = await fetch(`/api/admin/appointments/${editingAppointment.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          startTime: newStartTime,
+          endTime: newEndTime
+        }),
+      })
+
+      if (response.ok) {
+        fetchAppointments()
+        setEditingAppointment(null)
+        setNewStartTime("")
+      } else {
+        const error = await response.json()
+        alert(error.error || "Error al actualizar la hora")
+      }
+    } catch (error) {
+      console.error("Error updating appointment time:", error)
+      alert("Error al actualizar la hora")
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const openEditTimeModal = (appointment: Appointment) => {
+    setEditingAppointment(appointment)
+    setNewStartTime(appointment.startTime)
   }
 
   const deleteAppointment = async (id: string) => {
@@ -127,7 +192,7 @@ export default function AppointmentsPage() {
 
       {/* Filters */}
       <div className="bg-white rounded-xl shadow-md p-4 mb-6">
-        <div className="flex space-x-2">
+        <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setFilter("all")}
             className={`px-4 py-2 rounded-lg transition-colors ${
@@ -222,7 +287,7 @@ export default function AppointmentsPage() {
                         {dayjs(appointment.date).format("DD/MM/YYYY")}
                       </div>
                       <div className="text-sm text-gray-500">
-                        {appointment.startTime} - {appointment.endTime}
+                        {formatTo12Hour(appointment.startTime)} - {formatTo12Hour(appointment.endTime)}
                       </div>
                     </td>
                     <td className="px-6 py-4">
@@ -235,16 +300,23 @@ export default function AppointmentsPage() {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-sm">
-                      <div className="flex space-x-2">
+                      <div className="flex flex-wrap gap-2">
                         {appointment.status === "pending" && (
                           <>
+                            <button
+                              onClick={() => openEditTimeModal(appointment)}
+                              className="text-purple-600 hover:text-purple-900 font-medium"
+                              title="Editar hora antes de confirmar"
+                            >
+                              ✏️ Editar Hora
+                            </button>
                             <button
                               onClick={() =>
                                 updateAppointmentStatus(appointment.id, "confirmed")
                               }
                               className="text-green-600 hover:text-green-900 font-medium"
                             >
-                              Confirmar
+                              ✓ Confirmar
                             </button>
                             <button
                               onClick={() =>
@@ -252,7 +324,7 @@ export default function AppointmentsPage() {
                               }
                               className="text-red-600 hover:text-red-900 font-medium"
                             >
-                              Rechazar
+                              ✗ Rechazar
                             </button>
                           </>
                         )}
@@ -263,14 +335,14 @@ export default function AppointmentsPage() {
                             }
                             className="text-blue-600 hover:text-blue-900 font-medium"
                           >
-                            Completar
+                            ✓ Completar
                           </button>
                         )}
                         <button
                           onClick={() => deleteAppointment(appointment.id)}
                           className="text-red-600 hover:text-red-900 font-medium"
                         >
-                          Eliminar
+                          🗑️ Eliminar
                         </button>
                       </div>
                     </td>
@@ -281,6 +353,81 @@ export default function AppointmentsPage() {
           </div>
         )}
       </div>
+
+      {/* Modal para editar hora */}
+      {editingAppointment && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-md mx-4">
+            <h2 className="text-xl font-bold text-gray-900 mb-4">
+              ✏️ Editar Hora de Cita
+            </h2>
+
+            <div className="mb-4 p-4 bg-gray-50 rounded-lg">
+              <p className="text-sm text-gray-600">
+                <strong>Cliente:</strong> {editingAppointment.user.name || "Sin nombre"}
+              </p>
+              <p className="text-sm text-gray-600">
+                <strong>Servicio:</strong> {editingAppointment.service.name}
+              </p>
+              <p className="text-sm text-gray-600">
+                <strong>Duración:</strong> {editingAppointment.service.duration} minutos
+              </p>
+              <p className="text-sm text-gray-600">
+                <strong>Fecha:</strong> {dayjs(editingAppointment.date).format("DD/MM/YYYY")}
+              </p>
+              <p className="text-sm text-gray-600">
+                <strong>Hora actual:</strong> {formatTo12Hour(editingAppointment.startTime)} - {formatTo12Hour(editingAppointment.endTime)}
+              </p>
+            </div>
+
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Nueva hora de inicio:
+              </label>
+              <select
+                value={newStartTime}
+                onChange={(e) => setNewStartTime(e.target.value)}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+              >
+                {timeOptions.map((time) => (
+                  <option key={time} value={time}>
+                    {formatTo12Hour(time)}
+                  </option>
+                ))}
+              </select>
+              {newStartTime && (
+                <p className="mt-2 text-sm text-teal-600">
+                  Nueva hora: {formatTo12Hour(newStartTime)} - {formatTo12Hour(
+                    dayjs(`2000-01-01 ${newStartTime}`)
+                      .add(editingAppointment.service.duration, "minute")
+                      .format("HH:mm")
+                  )}
+                </p>
+              )}
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  setEditingAppointment(null)
+                  setNewStartTime("")
+                }}
+                className="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+                disabled={saving}
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={updateAppointmentTime}
+                disabled={saving || !newStartTime}
+                className="flex-1 px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors disabled:opacity-50"
+              >
+                {saving ? "Guardando..." : "Guardar Cambios"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -7,6 +7,14 @@ import "react-big-calendar/lib/css/react-big-calendar.css"
 
 const localizer = dayjsLocalizer(dayjs)
 
+// Función para convertir hora militar a formato 12h AM/PM
+const formatTo12Hour = (time24: string): string => {
+  const [hours, minutes] = time24.split(":").map(Number)
+  const period = hours >= 12 ? "PM" : "AM"
+  const hours12 = hours % 12 || 12
+  return `${hours12}:${minutes.toString().padStart(2, "0")} ${period}`
+}
+
 type Appointment = {
   id: string
   date: string
@@ -35,9 +43,15 @@ export default function CalendarPage() {
   const [events, setEvents] = useState<CalendarEvent[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null)
+  const [lastUpdated, setLastUpdated] = useState<Date>(new Date())
 
   useEffect(() => {
     fetchAppointments()
+    // Actualizar automáticamente cada 30 segundos
+    const interval = setInterval(() => {
+      fetchAppointments()
+    }, 30000)
+    return () => clearInterval(interval)
   }, [])
 
   const fetchAppointments = async () => {
@@ -64,12 +78,18 @@ export default function CalendarPage() {
         })
 
         setEvents(calendarEvents)
+        setLastUpdated(new Date())
       }
     } catch (error) {
       console.error("Error fetching appointments:", error)
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleRefresh = () => {
+    setLoading(true)
+    fetchAppointments()
   }
 
   const eventStyleGetter = (event: CalendarEvent) => {
@@ -112,7 +132,21 @@ export default function CalendarPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Calendario de Citas</h1>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold text-gray-900">Calendario de Citas</h1>
+        <div className="flex items-center gap-4">
+          <span className="text-sm text-gray-500">
+            Última actualización: {lastUpdated.toLocaleTimeString()}
+          </span>
+          <button
+            onClick={handleRefresh}
+            disabled={loading}
+            className="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors font-semibold disabled:opacity-50 flex items-center gap-2"
+          >
+            🔄 Actualizar
+          </button>
+        </div>
+      </div>
 
       {/* Legend */}
       <div className="bg-white rounded-xl shadow-md p-4 mb-6">
@@ -202,7 +236,7 @@ export default function CalendarPage() {
               <div>
                 <p className="text-sm text-gray-500">Horario</p>
                 <p className="text-lg text-gray-900">
-                  {selectedEvent.resource.startTime} - {selectedEvent.resource.endTime}
+                  {formatTo12Hour(selectedEvent.resource.startTime)} - {formatTo12Hour(selectedEvent.resource.endTime)}
                 </p>
               </div>
 

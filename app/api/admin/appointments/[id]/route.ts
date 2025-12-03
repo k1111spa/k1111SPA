@@ -14,11 +14,17 @@ export async function PATCH(
 
     const { id } = await params
     const body = await request.json()
-    const { status } = body
+    const { status, startTime, endTime } = body
+
+    // Construir objeto de datos dinámicamente
+    const updateData: { status?: string; startTime?: string; endTime?: string } = {}
+    if (status !== undefined) updateData.status = status
+    if (startTime !== undefined) updateData.startTime = startTime
+    if (endTime !== undefined) updateData.endTime = endTime
 
     const appointment = await prisma.appointment.update({
       where: { id },
-      data: { status },
+      data: updateData,
     })
 
     return NextResponse.json(appointment)

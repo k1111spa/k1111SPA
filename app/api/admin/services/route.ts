@@ -10,9 +10,11 @@ export async function GET() {
     }
 
     const services = await prisma.service.findMany({
-      orderBy: {
-        category: "asc",
-      },
+      orderBy: [
+        { category: "asc" },
+        { sortOrder: "asc" } as any, // sortOrder field added in migration
+        { name: "asc" }
+      ],
     })
 
     return NextResponse.json(services)

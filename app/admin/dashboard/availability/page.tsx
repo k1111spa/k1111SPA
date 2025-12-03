@@ -3,6 +3,14 @@
 import { useEffect, useState } from "react"
 import dayjs from "dayjs"
 
+// Función para convertir hora militar a formato 12h AM/PM
+const formatTo12Hour = (time24: string): string => {
+  const [hours, minutes] = time24.split(":").map(Number)
+  const period = hours >= 12 ? "PM" : "AM"
+  const hours12 = hours % 12 || 12
+  return `${hours12}:${minutes.toString().padStart(2, "0")} ${period}`
+}
+
 type Availability = {
   id: string
   dayOfWeek: number
@@ -339,7 +347,7 @@ export default function AvailabilityPage() {
                             {daysOfWeek.find((d) => d.value === item.dayOfWeek)?.label}
                           </p>
                           <p className="text-sm text-gray-600">
-                            {item.startTime} - {item.endTime}
+                            {formatTo12Hour(item.startTime)} - {formatTo12Hour(item.endTime)}
                           </p>
                         </div>
                         <div className="flex items-center space-x-3">

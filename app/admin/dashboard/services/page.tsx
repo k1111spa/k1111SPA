@@ -17,6 +17,7 @@ type Service = {
   price: number
   category: string
   active: boolean
+  sortOrder?: number
 }
 
 export default function ServicesPage() {
@@ -25,6 +26,7 @@ export default function ServicesPage() {
   const [editingService, setEditingService] = useState<Service | null>(null)
   const [isCreating, setIsCreating] = useState(false)
   const [activeTab, setActiveTab] = useState<"es" | "en">("es")
+  const [reordering, setReordering] = useState<string | null>(null)
 
   const [formData, setFormData] = useState({
     name: "",
@@ -115,6 +117,28 @@ export default function ServicesPage() {
     }
   }
 
+  const moveService = async (serviceId: string, direction: "up" | "down", category: string) => {
+    setReordering(serviceId)
+    try {
+      const response = await fetch("/api/admin/services/reorder", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ serviceId, direction, category }),
+      })
+
+      if (response.ok) {
+        await fetchServices()
+      } else {
+        const error = await response.json()
+        console.error("Error reordering:", error)
+      }
+    } catch (error) {
+      console.error("Error moving service:", error)
+    } finally {
+      setReordering(null)
+    }
+  }
+
   const startEditing = (service: Service) => {
     setEditingService(service)
 
@@ -178,6 +202,9 @@ export default function ServicesPage() {
     })
   }
 
+  const facialServices = services.filter(s => s.category === 'facial')
+  const bodyServices = services.filter(s => s.category === 'body')
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
@@ -185,6 +212,83 @@ export default function ServicesPage() {
       </div>
     )
   }
+
+  const renderServiceTable = (categoryServices: Service[], category: string) => (
+    <tbody className="bg-white divide-y divide-gray-200">
+      {categoryServices.map((service, index) => (
+        <tr key={service.id} className="hover:bg-gray-50">
+          <td className="px-4 py-4">
+            <div className="flex flex-col gap-1">
+              <button
+                onClick={() => moveService(service.id, "up", category)}
+                disabled={index === 0 || reordering === service.id}
+                className={`p-1 rounded transition-colors ${
+                  index === 0 || reordering === service.id
+                    ? "text-gray-300 cursor-not-allowed"
+                    : "text-gray-500 hover:text-teal-600 hover:bg-teal-50"
+                }`}
+                title="Mover arriba"
+              >
+                ▲
+              </button>
+              <button
+                onClick={() => moveService(service.id, "down", category)}
+                disabled={index === categoryServices.length - 1 || reordering === service.id}
+                className={`p-1 rounded transition-colors ${
+                  index === categoryServices.length - 1 || reordering === service.id
+                    ? "text-gray-300 cursor-not-allowed"
+                    : "text-gray-500 hover:text-teal-600 hover:bg-teal-50"
+                }`}
+                title="Mover abajo"
+              >
+                ▼
+              </button>
+            </div>
+          </td>
+          <td className="px-6 py-4">
+            <div className="text-sm font-medium text-gray-900">{service.name}</div>
+            {service.description && (
+              <div className="text-sm text-gray-500">{service.description}</div>
+            )}
+          </td>
+          <td className="px-6 py-4">
+            <span className="text-sm text-gray-900">{service.duration} min</span>
+          </td>
+          <td className="px-6 py-4">
+            <span className="text-sm text-gray-900">${service.price}</span>
+          </td>
+          <td className="px-6 py-4">
+            <button
+              onClick={() => toggleServiceStatus(service.id, service.active)}
+              className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                service.active
+                  ? "bg-green-100 text-green-800"
+                  : "bg-gray-100 text-gray-800"
+              }`}
+            >
+              {service.active ? "Activo" : "Inactivo"}
+            </button>
+          </td>
+          <td className="px-6 py-4 text-sm">
+            <div className="flex space-x-3">
+              <button
+                onClick={() => startEditing(service)}
+                className="text-teal-600 hover:text-teal-900 font-medium"
+              >
+                Editar
+              </button>
+              <button
+                onClick={() => deleteService(service.id)}
+                className="text-red-600 hover:text-red-900 font-medium"
+              >
+                Eliminar
+              </button>
+            </div>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  )
 
   return (
     <div>
@@ -463,15 +567,26 @@ export default function ServicesPage() {
         </div>
       )}
 
+      {/* Instrucciones de reordenamiento */}
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+        <p className="text-sm text-blue-800">
+          <strong>Tip:</strong> Usa las flechas ▲ ▼ para cambiar el orden de los servicios.
+          El orden se reflejará en la página pública de reservas.
+        </p>
+      </div>
+
       {/* Tratamientos Faciales */}
       <div className="bg-white rounded-xl shadow-md overflow-hidden mb-8">
         <div className="bg-gradient-to-r from-teal-500 to-teal-600 px-6 py-4">
-          <h2 className="text-xl font-bold text-white">💆‍♀️ Tratamientos Faciales</h2>
+          <h2 className="text-xl font-bold text-white">💆‍♀️ Tratamientos Faciales ({facialServices.length})</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-16">
+                  Orden
+                </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Servicio
                 </th>
@@ -489,52 +604,7 @@ export default function ServicesPage() {
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {services.filter(s => s.category === 'facial').map((service) => (
-                <tr key={service.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4">
-                    <div className="text-sm font-medium text-gray-900">{service.name}</div>
-                    {service.description && (
-                      <div className="text-sm text-gray-500">{service.description}</div>
-                    )}
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="text-sm text-gray-900">{service.duration} min</span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="text-sm text-gray-900">${service.price}</span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <button
-                      onClick={() => toggleServiceStatus(service.id, service.active)}
-                      className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                        service.active
-                          ? "bg-green-100 text-green-800"
-                          : "bg-gray-100 text-gray-800"
-                      }`}
-                    >
-                      {service.active ? "Activo" : "Inactivo"}
-                    </button>
-                  </td>
-                  <td className="px-6 py-4 text-sm">
-                    <div className="flex space-x-3">
-                      <button
-                        onClick={() => startEditing(service)}
-                        className="text-teal-600 hover:text-teal-900 font-medium"
-                      >
-                        Editar
-                      </button>
-                      <button
-                        onClick={() => deleteService(service.id)}
-                        className="text-red-600 hover:text-red-900 font-medium"
-                      >
-                        Eliminar
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+            {renderServiceTable(facialServices, "facial")}
           </table>
         </div>
       </div>
@@ -542,12 +612,15 @@ export default function ServicesPage() {
       {/* Tratamientos Corporales */}
       <div className="bg-white rounded-xl shadow-md overflow-hidden">
         <div className="bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-4">
-          <h2 className="text-xl font-bold text-white">💪 Tratamientos Corporales</h2>
+          <h2 className="text-xl font-bold text-white">💪 Tratamientos Corporales ({bodyServices.length})</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-16">
+                  Orden
+                </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Servicio
                 </th>
@@ -565,52 +638,7 @@ export default function ServicesPage() {
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {services.filter(s => s.category === 'body').map((service) => (
-                <tr key={service.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4">
-                    <div className="text-sm font-medium text-gray-900">{service.name}</div>
-                    {service.description && (
-                      <div className="text-sm text-gray-500">{service.description}</div>
-                    )}
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="text-sm text-gray-900">{service.duration} min</span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="text-sm text-gray-900">${service.price}</span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <button
-                      onClick={() => toggleServiceStatus(service.id, service.active)}
-                      className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                        service.active
-                          ? "bg-green-100 text-green-800"
-                          : "bg-gray-100 text-gray-800"
-                      }`}
-                    >
-                      {service.active ? "Activo" : "Inactivo"}
-                    </button>
-                  </td>
-                  <td className="px-6 py-4 text-sm">
-                    <div className="flex space-x-3">
-                      <button
-                        onClick={() => startEditing(service)}
-                        className="text-teal-600 hover:text-teal-900 font-medium"
-                      >
-                        Editar
-                      </button>
-                      <button
-                        onClick={() => deleteService(service.id)}
-                        className="text-red-600 hover:text-red-900 font-medium"
-                      >
-                        Eliminar
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+            {renderServiceTable(bodyServices, "body")}
           </table>
         </div>
       </div>

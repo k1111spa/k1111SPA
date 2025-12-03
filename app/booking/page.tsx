@@ -5,6 +5,14 @@ import { useRouter } from "next/navigation"
 import Image from "next/image"
 import dayjs from "dayjs"
 
+// Función para convertir hora militar a formato 12h AM/PM
+const formatTo12Hour = (time24: string): string => {
+  const [hours, minutes] = time24.split(":").map(Number)
+  const period = hours >= 12 ? "PM" : "AM"
+  const hours12 = hours % 12 || 12
+  return `${hours12}:${minutes.toString().padStart(2, "0")} ${period}`
+}
+
 type Service = {
   id: string
   name: string
@@ -463,7 +471,7 @@ export default function BookingPage() {
                               : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                           }`}
                         >
-                          {time}
+                          {formatTo12Hour(time)}
                         </button>
                       ))}
                     </div>
@@ -497,7 +505,7 @@ export default function BookingPage() {
                 {selectedService?.name}
               </h3>
               <p className="text-gray-600">
-                {dayjs(selectedDate).format("MMMM D, YYYY")} - {selectedTime}
+                {dayjs(selectedDate).format("MMMM D, YYYY")} - {formatTo12Hour(selectedTime)}
               </p>
             </div>
 
@@ -592,7 +600,7 @@ export default function BookingPage() {
                   {dayjs(selectedDate).format("MMMM D, YYYY")}
                 </p>
                 <p>
-                  <span className="font-semibold">Time:</span> {selectedTime}
+                  <span className="font-semibold">Time:</span> {formatTo12Hour(selectedTime)}
                 </p>
                 <p>
                   <span className="font-semibold">Duration:</span>{" "}
